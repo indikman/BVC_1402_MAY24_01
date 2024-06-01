@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private float _yMovement;
     private float _movementAmount;
     private bool _isGround;
+    private float _strafeMovement;
 
     private void Awake()
     {
@@ -45,18 +46,39 @@ public class PlayerController : MonoBehaviour
 
         var velocity = _rb.velocity;
         velocity.y = 0;
-        
-        if(velocity.magnitude > 0.1f) 
-            animator.SetBool("isRunning", true);
-        else 
+
+        if (velocity.magnitude > 0.1f && _strafeMovement < -0.1f)
+        {
+            animator.SetBool("isStrafingLeft", true);
+            animator.SetBool("isStrafingRight", false);
             animator.SetBool("isRunning", false);
+        }
+        else if (velocity.magnitude > 0.1f && _strafeMovement > 0.1f)
+        {
+            animator.SetBool("isStrafingLeft", false);
+            animator.SetBool("isStrafingRight", true);
+            animator.SetBool("isRunning", false);
+        }
+        else if (velocity.magnitude > 0.1f)
+        {
+            animator.SetBool("isRunning", true);
+            animator.SetBool("isStrafingLeft", false);
+            animator.SetBool("isStrafingRight", false);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isStrafingLeft", false);
+            animator.SetBool("isStrafingRight", false);
+        }
+           
         
         animator.SetBool("isGround", _isGround);
     }
 
     private void HandleMovement()
     {
-        Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
+        Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement + _cameraObject.right * _strafeMovement;
         moveDirection.Normalize();
         moveDirection.y = 0;
 
@@ -70,6 +92,10 @@ public class PlayerController : MonoBehaviour
     private void HandleRotation()
     {
         Vector3 targetDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
+        if (_strafeMovement != 0)
+        {
+            targetDirection = _cameraObject.forward;
+        }
         targetDirection.Normalize();
         targetDirection.y = 0;
 
@@ -103,5 +129,10 @@ public class PlayerController : MonoBehaviour
     {
         _isGround = Physics.CheckSphere(transform.position + groundCheckPoint, radius, groundLayer);
     }
-   
+
+    public void SetStrafeInput(float input)
+    {
+        _strafeMovement = input;
+    }
+
 }

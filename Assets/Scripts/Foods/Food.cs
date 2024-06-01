@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
+    
     bool _hit = false;
     public int Value
     {
@@ -11,11 +12,15 @@ public class Food : MonoBehaviour
     }
     void Awake()
     {
-
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            GameManager.Instance.AddScore(Value);
+            Destroy(gameObject);
+        }
     }
 }

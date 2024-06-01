@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float radius;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Strafe")]
+    [SerializeField] private float strafeSpeed = 1.5f;
+
     [Header("Animations")]
     [SerializeField] private Animator animator;
 
@@ -37,6 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleRotation();
+        HandleStrafe();
     }
 
     private void Update()
@@ -97,6 +101,11 @@ public class PlayerController : MonoBehaviour
         currentVelocity.y = jumpVelocity;
 
         _rb.velocity = currentVelocity;
+    }
+
+    public void HandleStrafe()
+    {
+        animator.SetTrigger("Strafe");
     }
 
     private void GroundCheck()

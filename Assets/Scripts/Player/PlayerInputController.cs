@@ -18,6 +18,10 @@ public class PlayerInputController : MonoBehaviour
         _playerInput.PlayerMovement.Movement.performed += 
             value => _playerController.SetMovementInput(value.ReadValue<Vector2>());
 
+        //this if for strafe movemnet
+        _playerInput.PlayerMovement.Strafe.performed +=
+            value => _playerController.SetStrafeInput(value.ReadValue<float>());
+
         _playerInput.PlayerMovement.Camera.performed +=
             value => _cameraController.RotateCamera(value.ReadValue<Vector2>());
 

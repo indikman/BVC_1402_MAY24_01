@@ -6,15 +6,18 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    public CoroutineTest test;
+   
     void Awake()
     {
+        test = this.GetComponent<CoroutineTest>();
         if (Instance != null && Instance != this)
         {
             Destroy(this);
         }
 
         Instance = this;
+      
     }
     
     private GameTimer _gameTimer;
@@ -24,10 +27,14 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        StartCoroutine(test.SpawnItem());
         _gameTimer = GetComponent<GameTimer>();
         _gameTimer.StartTimer();
     }
-
+    public void Update()
+    {
+       
+    }
     public void AddScore(int value)
     {
         _score += value;

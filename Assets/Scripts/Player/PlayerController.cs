@@ -1,12 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Composites;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
     private Transform _cameraObject;
     private Rigidbody _rb;
+
+    [SerializeField]
+    GameObject _cameraPivot;
+    [SerializeField]
+    GameObject _cameraDefault;
+    
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 1.5f;
@@ -24,6 +35,9 @@ public class PlayerController : MonoBehaviour
 
     private float _xMovement;
     private float _yMovement;
+
+   
+
     private float _movementAmount;
     private bool _isGround;
 
@@ -37,6 +51,34 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleRotation();
+
+
+        RaycastHit hit;
+      
+        if (Physics.Raycast(_cameraPivot.transform.position, _cameraObject.transform.position - _cameraPivot.transform.position, out hit))
+            if(hit.collider != null)
+            {
+                if (hit.collider.tag == "Ground")
+                {
+                    if (hit.distance <= (this.transform.position - _cameraDefault.transform.position).magnitude)
+                    {
+                        _cameraObject.transform.position = UnityEngine.Vector3.Slerp(_cameraObject.transform.position, hit.point, 0.1f);
+                    }
+                    else
+                    {
+                        _cameraObject.transform.position = UnityEngine.Vector3.Slerp(_cameraObject.transform.position, _cameraDefault.transform.position, 0.1f);
+
+                    }
+                }
+            }
+                
+ 
+        if (hit.collider == null)
+        {
+            _cameraObject.transform.position = UnityEngine.Vector3.Slerp(_cameraObject.transform.position, _cameraDefault.transform.position, 0.1f);
+            
+        }
+        
     }
 
     private void Update()
@@ -65,7 +107,30 @@ public class PlayerController : MonoBehaviour
         moveDirection.y = _rb.velocity.y;
 
         _rb.velocity = moveDirection;
+        float _strafeXMovement;
+        if (Input.GetKey(KeyCode.Q))
+        {
+            _strafeXMovement = -1;
+             moveDirection += _cameraObject.right * _strafeXMovement;
+            moveDirection.Normalize();
+            moveDirection.y = 0;
+            moveDirection *= walkSpeed;
+            moveDirection.y = _rb.velocity.y;
+            _rb.velocity = moveDirection;
+        }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            _strafeXMovement = 1;
+             moveDirection += _cameraObject.right * _strafeXMovement;
+            moveDirection.Normalize();
+            moveDirection.Normalize();
+            moveDirection *= walkSpeed;
+            moveDirection.y = _rb.velocity.y;
+            _rb.velocity = moveDirection;
+        }
+
     }
+
 
     private void HandleRotation()
     {
@@ -80,6 +145,7 @@ public class PlayerController : MonoBehaviour
 
         transform.rotation = playerRotation;
     }
+   
 
     public void SetMovementInput(Vector2 input)
     {

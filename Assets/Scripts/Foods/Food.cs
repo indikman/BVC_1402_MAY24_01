@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Food : MonoBehaviour
@@ -19,8 +20,20 @@ public class Food : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.Instance.AddScore(Value);
-            Destroy(gameObject);
+            if (this.gameObject.GetComponent<Cake>() != null)
+            {
+                if (this.gameObject.GetComponent<Cake>().canCollect)
+                {
+                    GameManager.Instance.AddScore(Value);
+                    Destroy(gameObject);
+                }
+            }
+            else
+            {
+                GameManager.Instance.AddScore(Value);
+                Destroy(gameObject);
+            }
+            
         }
     }
 }

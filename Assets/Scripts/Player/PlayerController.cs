@@ -46,12 +46,54 @@ public class PlayerController : MonoBehaviour
         var velocity = _rb.velocity;
         velocity.y = 0;
         
-        if(velocity.magnitude > 0.1f) 
+        if (_yMovement < 0)
+        {
+           
             animator.SetBool("isRunning", true);
-        else 
+        }
+        else if (_yMovement == 0)
+        {
             animator.SetBool("isRunning", false);
-        
-        animator.SetBool("isGround", _isGround);
+
+            animator.SetBool("isGround", _isGround);
+        }
+
+        if (_yMovement > 0)
+        {
+
+            animator.SetBool("isRunning", true);
+        }
+        else if (_yMovement == 0)
+        {
+            animator.SetBool("isRunning", false);
+
+            animator.SetBool("isGround", _isGround);
+        }
+
+        if (_xMovement > 0)
+        {
+
+            animator.SetBool("isStrafingRight", true);
+        }
+        else
+        {
+            animator.SetBool("isStrafingRight", false);
+
+            animator.SetBool("isGround", _isGround);
+        }
+
+        if (_xMovement < 0)
+        {
+
+            animator.SetBool("isStrafingLeft", true);
+        }
+        else
+        {
+            animator.SetBool("isStrafingLeft", false);
+
+            animator.SetBool("isGround", _isGround);
+        }
+
     }
 
     private void HandleMovement()

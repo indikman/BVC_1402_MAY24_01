@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.54886997, g: 0.7945225, b: 0.9728404, a: 1}
+  m_IndirectSpecularColor: {r: 0.5493344, g: 0.7941628, b: 0.9733974, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -276,6 +276,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2117376913}
+  foodRespawnTime: 5
+  foodSpawnerBound: {fileID: 1724955462}
 --- !u!4 &215930011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2503225421707951996, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
@@ -292,6 +294,14 @@ PrefabInstance:
     - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
       propertyPath: m_Name
       value: Burger (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3422008339478946562, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
       propertyPath: m_RootOrder
@@ -359,6 +369,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fish (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 141734988828101162, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 141734988828101162, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 773593928152092816, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -421,6 +439,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1994363989}
     m_Modifications:
+    - target: {fileID: 1354686981642790143, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+      propertyPath: m_MaxDistance
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354686981642790143, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+      propertyPath: layermask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5946835193750358478, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -435,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5946835193750358478, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.8003931
+      value: 1.17
       objectReference: {fileID: 0}
     - target: {fileID: 5946835193750358478, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -469,6 +495,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cake (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -490,6 +524,14 @@ PrefabInstance:
     - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
       propertyPath: m_Name
       value: Burger (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3422008339478946562, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
       propertyPath: m_RootOrder
@@ -560,6 +602,14 @@ PrefabInstance:
     - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
       propertyPath: m_Name
       value: Burger (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3422008339478946562, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
       propertyPath: m_RootOrder
@@ -650,6 +700,14 @@ PrefabInstance:
     - target: {fileID: 572357263643718454, guid: 58d585576d9fc334d8eb9ad00435097c, type: 3}
       propertyPath: m_Name
       value: Bread (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 572357263643718454, guid: 58d585576d9fc334d8eb9ad00435097c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 572357263643718454, guid: 58d585576d9fc334d8eb9ad00435097c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 917251402817431948, guid: 58d585576d9fc334d8eb9ad00435097c, type: 3}
       propertyPath: m_RootOrder
@@ -760,6 +818,14 @@ PrefabInstance:
     - target: {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
       propertyPath: m_Name
       value: Cake (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1366,6 +1432,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Burger (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3422008339478946562, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1420,6 +1494,64 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3422008339478946562, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
   m_PrefabInstance: {fileID: 1665708596}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1724955461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724955463}
+  - component: {fileID: 1724955462}
+  m_Layer: 0
+  m_Name: FoodRespawnBound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1724955462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724955461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559ff00092a18074fa7b3d08330bf7bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundCenter: {x: 0.17, y: 1.46, z: 1.24}
+  boundSize: {x: 25.34, y: 0.89, z: 26.72}
+  foodPrefabList:
+  - {fileID: 572357263643718454, guid: 58d585576d9fc334d8eb9ad00435097c, type: 3}
+  - {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+  - {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+  - {fileID: 141734988828101162, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
+  - {fileID: 8438054040456672074, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
+  layermask:
+    serializedVersion: 2
+    m_Bits: 64
+  sphereRadius: 0.5
+  parentObject: {fileID: 1994363988}
+  retryNum: 10
+--- !u!4 &1724955463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724955461}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1740916606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1816,6 +1948,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Steak (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8438054040456672074, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8438054040456672074, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9102388228212156912, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -2084,9 +2224,21 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 169135092}
+    - target: {fileID: 8386144508164153899, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8438054040456672074, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
       propertyPath: m_Name
       value: Steak
+      objectReference: {fileID: 0}
+    - target: {fileID: 8438054040456672074, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8438054040456672074, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9102388228212156912, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
       propertyPath: m_RootOrder
@@ -2154,6 +2306,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bread
       objectReference: {fileID: 0}
+    - target: {fileID: 572357263643718454, guid: 58d585576d9fc334d8eb9ad00435097c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 572357263643718454, guid: 58d585576d9fc334d8eb9ad00435097c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 917251402817431948, guid: 58d585576d9fc334d8eb9ad00435097c, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -2219,6 +2379,14 @@ PrefabInstance:
     - target: {fileID: 141734988828101162, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
       propertyPath: m_Name
       value: Fish
+      objectReference: {fileID: 0}
+    - target: {fileID: 141734988828101162, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 141734988828101162, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 773593928152092816, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
       propertyPath: m_RootOrder
@@ -2330,6 +2498,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cake
       objectReference: {fileID: 0}
+    - target: {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2351,6 +2527,14 @@ PrefabInstance:
     - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
       propertyPath: m_Name
       value: Burger
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3422008339478946562, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
       propertyPath: m_RootOrder
@@ -2396,6 +2580,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7475982594526414864, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2419,3 +2607,4 @@ SceneRoots:
   - {fileID: 2130838016}
   - {fileID: 169135090}
   - {fileID: 1757760604}
+  - {fileID: 1724955463}

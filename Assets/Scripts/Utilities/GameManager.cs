@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     private int _score;
 
     [SerializeField] private TMP_Text scoreText;
+
+    [SerializeField] private float foodRespawnTime;
+
+    [SerializeField] SpawnFood foodSpawnerBound;
     
     void Start()
     {
@@ -34,5 +38,14 @@ public class GameManager : MonoBehaviour
         scoreText.text = _score.ToString();
     }
 
-    
+    public void RespawnFood()
+    {
+        StartCoroutine(SpawnRandomFood());
+    }
+
+    public IEnumerator SpawnRandomFood()
+    {
+        yield return new WaitForSeconds(foodRespawnTime);
+        GameObject spawnedFood = foodSpawnerBound.SpawningFood();
+    }
 }

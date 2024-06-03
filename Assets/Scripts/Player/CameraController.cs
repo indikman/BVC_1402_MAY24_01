@@ -20,16 +20,26 @@ public class CameraController : MonoBehaviour
 
     private float _lookAngle = 0f;
     private float _pivotAngle = 0f;
-    
+
+    [Header("Camera Zoom")]
+    [SerializeField] private Camera mainCameraObject;
+    [SerializeField] private float zoomSpeed = .5f;
+    [SerializeField] private float defaultZoom = -2.25f;
+    [SerializeField] private LayerMask raycastLayer;
+    [SerializeField] private Vector3 playerCenter;
+    [SerializeField] private float drawDis = 3f;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        defaultZoom = mainCameraObject.transform.position.z;
     }
     
     void Update()
     {
         FollowTarget();
+        ZoomCameraWhenBlocked();
     }
 
     private void FollowTarget()
@@ -59,6 +69,26 @@ public class CameraController : MonoBehaviour
         Quaternion targetPivotRotation = Quaternion.Euler(pivotRotation);
         cameraPivot.localRotation = targetPivotRotation;
 
+    }
+
+    private void ZoomCameraWhenBlocked()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(targetTransform.position + playerCenter, (mainCameraObject.transform.TransformDirection(Vector3.back) + playerCenter), out hit, drawDis, raycastLayer))
+        {
+            //Debug.DrawRay(targetTransform.position + playerCenter, (mainCameraObject.transform.TransformDirection(Vector3.back) + playerCenter) * hit.distance, Color.yellow);
+            //Debug.Log("Did Hit: " + hit.collider.gameObject.name);
+            mainCameraObject.transform.localPosition = Vector3.MoveTowards(mainCameraObject.transform.localPosition, Vector3.zero, zoomSpeed * Time.deltaTime);
+            drawDis = Mathf.Abs(mainCameraObject.transform.localPosition.z);
+
+        }
+        else
+        {
+            //Debug.DrawRay(targetTransform.position + playerCenter, (mainCameraObject.transform.TransformDirection(Vector3.back) + playerCenter) * drawDis, Color.white);
+            //Debug.Log("Did not Hit");
+            mainCameraObject.transform.localPosition = Vector3.MoveTowards(mainCameraObject.transform.localPosition, new Vector3(0, 0, defaultZoom), zoomSpeed * Time.deltaTime);
+            drawDis = Mathf.Abs(mainCameraObject.transform.localPosition.z);
+        }
     }
     
 }

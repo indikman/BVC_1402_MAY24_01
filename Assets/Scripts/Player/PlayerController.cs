@@ -11,9 +11,8 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 1.5f;
     [SerializeField] private float rotationSpeed = 15f;
-    [SerializeField] private float strafeSpeed = 1.5f;
 
-    [Header("Jump")]
+    [Header("Jump")] 
     [SerializeField] private float jumpVelocity = 20f;
 
     [SerializeField] private Vector3 groundCheckPoint;
@@ -46,12 +45,12 @@ public class PlayerController : MonoBehaviour
 
         var velocity = _rb.velocity;
         velocity.y = 0;
-
-        if (velocity.magnitude > 0.1f)
+        
+        if(velocity.magnitude > 0.1f) 
             animator.SetBool("isRunning", true);
-        else
+        else 
             animator.SetBool("isRunning", false);
-
+        
         animator.SetBool("isGround", _isGround);
     }
 
@@ -63,22 +62,9 @@ public class PlayerController : MonoBehaviour
 
         moveDirection *= walkSpeed;
 
-        float strafe = 0;
-        if (Input.GetKey(KeyCode.Q))
-        {
-            strafe = -1;
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-            strafe = 1;
-        }
+        moveDirection.y = _rb.velocity.y;
 
-        Vector3 strafeDirection = _cameraObject.right * strafe * strafeSpeed;
-        Vector3 FullmoveDirection = moveDirection + strafeDirection;
-
-        FullmoveDirection.y = _rb.velocity.y;
-
-        _rb.velocity = FullmoveDirection;
+        _rb.velocity = moveDirection;
     }
 
     private void HandleRotation()
@@ -103,10 +89,10 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (!_isGround) return;
-
+        if(!_isGround) return;
+        
         animator.SetTrigger("jump");
-
+        
         Vector3 currentVelocity = _rb.velocity;
         currentVelocity.y = jumpVelocity;
 
@@ -117,5 +103,5 @@ public class PlayerController : MonoBehaviour
     {
         _isGround = Physics.CheckSphere(transform.position + groundCheckPoint, radius, groundLayer);
     }
-
+   
 }

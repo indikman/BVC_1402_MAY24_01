@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Burger : Food
 {
-    // Start is called before the first frame update
+    
+    private Material material;
+    private Color color;    
+    
+    
     void Start()
     {
         Value = GameConstants.BurgerValue;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         

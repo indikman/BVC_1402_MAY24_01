@@ -24,8 +24,12 @@ public class PlayerController : MonoBehaviour
 
     private float _xMovement;
     private float _yMovement;
+    private float _strafeMovement;
     private float _movementAmount;
     private bool _isGround;
+    private bool _isStrafing;
+    private bool _isStrafingLeft;
+    private bool _isStrafingRight;
 
     private void Awake()
     {
@@ -45,8 +49,26 @@ public class PlayerController : MonoBehaviour
 
         var velocity = _rb.velocity;
         velocity.y = 0;
-        
-        if(velocity.magnitude > 0.1f) 
+
+        if (_isStrafingLeft)
+        {
+            animator.SetBool("isStrafingLeft", true);
+            animator.SetBool("isStrafingRight", false);
+        }
+
+        else if (_isStrafingRight)
+        {
+            animator.SetBool("isStrafingLeft", false);
+            animator.SetBool("isStrafingRight", true);
+        }
+
+        else
+        {
+            animator.SetBool("isStrafingLeft", false);
+            animator.SetBool("isStrafingRight", false);
+        }
+
+        if (velocity.magnitude > 0.1f && _isStrafing == false) 
             animator.SetBool("isRunning", true);
         else 
             animator.SetBool("isRunning", false);
@@ -60,11 +82,39 @@ public class PlayerController : MonoBehaviour
         moveDirection.Normalize();
         moveDirection.y = 0;
 
+        moveDirection += _strafeMovement * this.transform.right;
+        moveDirection.Normalize();
+
         moveDirection *= walkSpeed;
 
         moveDirection.y = _rb.velocity.y;
 
         _rb.velocity = moveDirection;
+    }
+
+    public void SetStrafe(float value)
+    {
+        _strafeMovement = value;
+        if(value == 0)
+        {
+            _isStrafing = false;
+            _isStrafingLeft = false;
+            _isStrafingRight = false;
+        }
+        else
+        {
+            _isStrafing = true;
+            if(value < 0)
+            {
+                _isStrafingLeft = true;
+                _isStrafingRight = false;
+            }
+            else if(value > 0) 
+            {
+                _isStrafingLeft = false;
+                _isStrafingRight = true;
+            }
+        }
     }
 
     private void HandleRotation()

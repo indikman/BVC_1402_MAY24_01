@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.54886997, g: 0.7945225, b: 0.9728404, a: 1}
+  m_IndirectSpecularColor: {r: 0.5493344, g: 0.7941628, b: 0.9733974, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -244,7 +244,7 @@ Transform:
   m_GameObject: {fileID: 169135088}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.73117, y: 1.0450547, z: -0.10001289}
+  m_LocalPosition: {x: 0.05, y: 0.27, z: -4.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -275,6 +275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23b05083581745f2b50c4d11f9d36b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _respawnTime: 2
+  _burgerPrefab: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+  _burgerSpawnRadius: 10
   scoreText: {fileID: 2117376913}
 --- !u!4 &215930011 stripped
 Transform:

@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [SerializeField] private Food food;
 
     void Awake()
     {
@@ -26,12 +27,15 @@ public class GameManager : MonoBehaviour
     {
         _gameTimer = GetComponent<GameTimer>();
         _gameTimer.StartTimer();
+        food = GetComponent<Food>();
+       // food.CallSpawn();
     }
 
     public void AddScore(int value)
     {
         _score += value;
         scoreText.text = _score.ToString();
+       
     }
 
     

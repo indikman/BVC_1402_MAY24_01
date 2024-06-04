@@ -268,4 +268,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnCamera(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
     }
+
+    internal interface IMovementActions
+    {
+    }
+
+    internal interface imovementactions
+    {
+    }
 }

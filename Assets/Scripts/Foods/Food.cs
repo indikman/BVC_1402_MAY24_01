@@ -19,8 +19,9 @@ public class Food : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.Instance.AddScore(Value);
+            GameManager.Instance.AddScore(Value,this.transform.position);
             Destroy(gameObject);
         }
     }
 }
+

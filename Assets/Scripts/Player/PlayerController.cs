@@ -111,19 +111,21 @@ public class PlayerController : MonoBehaviour
         if (_xstrafeInput == -1)
         {
             
-            animator.SetTrigger("strafeL");
-            animator.ResetTrigger("strafeR");
+            animator.SetBool("isStrafeL",true);
+            animator.SetBool("isRunning", false);
+            // animator.ResetTrigger("strafeR");
         }
  
         else if(_xstrafeInput == 1)
         {
-            animator.SetTrigger("strafeR");
-            animator.ResetTrigger("strafeL");
+            animator.SetBool("isStrafeR",true);
+            //animator.ResetTrigger("strafeL");
+            animator.SetBool("isRunning", false);
         }
         else
         {
-            animator.ResetTrigger("strafeL");
-            animator.ResetTrigger("strafeR");
+            animator.SetBool("isStrafeR", false);
+            animator.SetBool("isStrafeL", false);
         }
             
 

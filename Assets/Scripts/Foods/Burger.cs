@@ -5,10 +5,6 @@ using UnityEngine;
 public class Burger : Food
 {
     
-    private Material material;
-    private Color color;    
-    
-    
     void Start()
     {
         Value = GameConstants.BurgerValue;

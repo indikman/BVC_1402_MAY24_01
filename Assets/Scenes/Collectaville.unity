@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23b05083581745f2b50c4d11f9d36b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _respawnTime: 2
+  _respawnTime: 10
   _burgerPrefab: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
   _burgerSpawnRadius: 10
   scoreText: {fileID: 2117376913}
@@ -774,6 +774,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5946835193750358478, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
   m_PrefabInstance: {fileID: 1287217374}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1556409712 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2503225421799454488, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+  m_PrefabInstance: {fileID: 1871248319}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1556409714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556409712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63358239ea344a34f99500f11a7ccde2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDistance: 1
+  maxDistance: 4
+  smooth: 10
+  dollyDirAdjustment: {x: 0, y: 0, z: 0}
+  distance: 0
 --- !u!1001 &1577428347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1574,6 +1596,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2503225421799454490, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+      propertyPath: far clip plane
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503225421799454490, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503225421799454490, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 4294967295
       objectReference: {fileID: 0}
@@ -1632,6 +1662,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2503225422547207279, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
       insertIndex: -1
       addedObject: {fileID: 994035223}
+    - targetCorrespondingSourceObject: {fileID: 2503225421799454488, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1556409714}
   m_SourcePrefab: {fileID: 100100000, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
 --- !u!1 &1915520290
 GameObject:

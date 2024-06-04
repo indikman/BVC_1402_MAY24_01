@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.Composites;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -64,14 +65,14 @@ public class PlayerController : MonoBehaviour
         
         animator.SetBool("isGround", _isGround);
 
-        if(_xStrafing == -1f)
+        if(velocity.magnitude > 0.1f && _xStrafing < 0)
         {
             animator.SetBool("isRunning", false);
             animator.SetBool("isLeftStrafe", true);
             animator.SetBool("isRightStrafe", false);
         }
             
-        else if (_xStrafing == 1f)
+        else if (velocity.magnitude > 0.1f && _xStrafing > 0)
         {
             animator.SetBool("isRunning", false);
             animator.SetBool("isLeftStrafe", false);
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
+        Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement + _cameraObject.right * _xStrafing;
         moveDirection.Normalize();
         moveDirection.y = 0;
 
@@ -96,22 +97,6 @@ public class PlayerController : MonoBehaviour
         moveDirection.y = _rb.velocity.y;
 
         _rb.velocity = moveDirection;
-
-        if(_xStrafing != 0)
-        {
-            Vector3 strafeDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xStrafing;
-            strafeDirection.Normalize();
-            strafeDirection.y = 0;
-
-            strafeDirection *= walkSpeed;
-
-            strafeDirection.y = _rb.velocity.y;
-
-            _rb.velocity = strafeDirection;
-            if (strafeDirection == Vector3.zero) strafeDirection = transform.forward;
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, _cameraObject.rotation, rotationSpeed * Time.deltaTime);
-        }
     }
 
     private void HandleRotation()
@@ -126,6 +111,14 @@ public class PlayerController : MonoBehaviour
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
         transform.rotation = playerRotation;
+
+        if(_xStrafing != 0 && _yMovement != -1)
+        {
+            Quaternion strafeRotation = Quaternion.Slerp(transform.rotation, _cameraObject.rotation, rotationSpeed * Time.deltaTime);
+            strafeRotation = Quaternion.Euler(new Vector3(0f, strafeRotation.eulerAngles.y, 0f));
+
+            transform.rotation = strafeRotation;
+        }
     }
 
     public void SetMovementInput(Vector2 input)

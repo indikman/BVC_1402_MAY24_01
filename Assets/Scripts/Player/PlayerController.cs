@@ -1,8 +1,7 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.Composites;
 using UnityEngine.InputSystem.Controls;
@@ -36,10 +35,13 @@ public class PlayerController : MonoBehaviour
     private float _xMovement;
     private float _yMovement;
 
-   
+    float _strafeMovement;
 
     private float _movementAmount;
     private bool _isGround;
+    public bool _isStrafing = false;
+    [SerializeField]
+    float cameraAdjustSpeed;
 
     private void Awake()
     {
@@ -62,11 +64,11 @@ public class PlayerController : MonoBehaviour
                 {
                     if (hit.distance <= (this.transform.position - _cameraDefault.transform.position).magnitude)
                     {
-                        _cameraObject.transform.position = UnityEngine.Vector3.Slerp(_cameraObject.transform.position, hit.point, 0.1f);
+                        _cameraObject.transform.position = UnityEngine.Vector3.Slerp(_cameraObject.transform.position, hit.point, cameraAdjustSpeed);
                     }
                     else
                     {
-                        _cameraObject.transform.position = UnityEngine.Vector3.Slerp(_cameraObject.transform.position, _cameraDefault.transform.position, 0.1f);
+                        _cameraObject.transform.position = UnityEngine.Vector3.Slerp(_cameraObject.transform.position, _cameraDefault.transform.position, cameraAdjustSpeed);
 
                     }
                 }
@@ -88,49 +90,47 @@ public class PlayerController : MonoBehaviour
         var velocity = _rb.velocity;
         velocity.y = 0;
         
-        if(velocity.magnitude > 0.1f) 
+
+        if(_strafeMovement == 0)
+        {
+            _isStrafing = false;
+          
+        }
+        else
+        {
+            _isStrafing = true;
+           
+        }
+
+        if(velocity.magnitude > 0.1f && _isStrafing == false) 
             animator.SetBool("isRunning", true);
         else 
             animator.SetBool("isRunning", false);
-        
+        animator.SetBool("isStrafing", _isStrafing);
         animator.SetBool("isGround", _isGround);
     }
 
     private void HandleMovement()
     {
         Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
-        moveDirection.Normalize();
-        moveDirection.y = 0;
-
-        moveDirection *= walkSpeed;
-
-        moveDirection.y = _rb.velocity.y;
-
-        _rb.velocity = moveDirection;
-        float _strafeXMovement;
-        if (Input.GetKey(KeyCode.Q))
-        {
-            _strafeXMovement = -1;
-             moveDirection += _cameraObject.right * _strafeXMovement;
+        moveDirection.Normalize();        
+            moveDirection += this.transform.right * _strafeMovement;
             moveDirection.Normalize();
             moveDirection.y = 0;
             moveDirection *= walkSpeed;
             moveDirection.y = _rb.velocity.y;
             _rb.velocity = moveDirection;
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-            _strafeXMovement = 1;
-             moveDirection += _cameraObject.right * _strafeXMovement;
-            moveDirection.Normalize();
-            moveDirection.Normalize();
-            moveDirection *= walkSpeed;
-            moveDirection.y = _rb.velocity.y;
-            _rb.velocity = moveDirection;
-        }
+    
+
+        
 
     }
 
+    public void SetStrafe(float input)
+    {
+        
+        _strafeMovement = input;
+    }
 
     private void HandleRotation()
     {

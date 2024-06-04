@@ -8,9 +8,9 @@ public class CoroutineTest : MonoBehaviour
     public bool canIGo;
     private Coroutine _testCoroutine;
     [SerializeField]
-    GameObject cake;
-    [SerializeField]
     List<GameObject> foodSpawnList = new List<GameObject>();
+    [SerializeField]
+    List<GameObject> foodsToSpawn = new List<GameObject>();
     [SerializeField]
     GameObject spawnParent;
     private int numberOfPoints;
@@ -32,7 +32,7 @@ public class CoroutineTest : MonoBehaviour
         yield return new WaitForSeconds(spawnFrequency);
         Vector3 spawnPos = (foodSpawnList[Random.Range(0, foodSpawnList.Count)].transform.position);
         spawnPos += new Vector3(Random.Range(-spawnRadius, spawnRadius),0, Random.Range(-spawnRadius, spawnRadius));
-        Instantiate(cake,spawnPos, Quaternion.identity);
+        Instantiate(foodsToSpawn.ElementAt(Random.Range(0,foodsToSpawn.Count)),spawnPos, Quaternion.identity);
         StartCoroutine(SpawnItem());
     }
     private IEnumerator TestIEnumerator()

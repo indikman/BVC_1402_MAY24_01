@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isLeftStrafe", true);
             animator.SetBool("isRunning", false);
-            animator.SetBool("isRigthStrafe", false);
+            animator.SetBool("isRightStrafe", false);
 
         }
         else
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         if(_strafe == 1)
         {
             animator.SetBool("isRightStrafe", true);
-            animator.SetBool("IsRunning", false);
+            animator.SetBool("isRunning", false);
             animator.SetBool("isLeftStrafe", false);
         }
         else

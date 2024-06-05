@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.54886997, g: 0.7945225, b: 0.9728404, a: 1}
+  m_IndirectSpecularColor: {r: 0.5493344, g: 0.7941628, b: 0.9733974, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &34362583 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2503225421799454488, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+  m_PrefabInstance: {fileID: 1871248319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &77126149
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +286,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2503225421707951996, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
   m_PrefabInstance: {fileID: 1871248319}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &311342703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34362583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9329766bc68dd5742ad64430425295f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDistance: 1
+  maxDistance: 3
+  smooth: 10
+  sphereRadius: 1
+  cameraCastDistance: 3
+  layerHit:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  currentHitObject: {fileID: 0}
 --- !u!1001 &427170720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1629,6 +1655,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2503225422547207279, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
       insertIndex: -1
       addedObject: {fileID: 994035223}
+    - targetCorrespondingSourceObject: {fileID: 2503225421799454488, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 311342703}
   m_SourcePrefab: {fileID: 100100000, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
 --- !u!1 &1915520290
 GameObject:

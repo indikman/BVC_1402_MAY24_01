@@ -17,14 +17,14 @@ public class PlayerInputController : MonoBehaviour
         _cameraController = FindObjectOfType<CameraController>(); // This is an expensive method, should not be used frequently
 
         _playerInput = new PlayerInput();
-        _playerInput.PlayerMovement.Movement.performed += value => _playerController.SetMovementInput(value.ReadValue<Vector2>());
+        _playerInput.PlayerMovement.Movement.performed += value => _playerController.SetMovementInput(value.ReadValue<Vector2>()); //Read value from Movement in Input Actions and put it to SetMovementInput();
 
-        _playerInput.PlayerMovement.Camera.performed += value => _cameraController.RotateCamera(value.ReadValue<Vector2>());
+        _playerInput.PlayerMovement.Camera.performed += value => _cameraController.RotateCamera(value.ReadValue<Vector2>()); //Read value from Camera in Input Actions and put it to RotateCamera();
 
-        _playerInput.PlayerMovement.Jump.performed += value => _playerController.Jump();
+        _playerInput.PlayerMovement.Jump.performed += value => _playerController.Jump(); //set input from Jump in Input Actions to Jump();
 
-        _playerInput.PlayerMovement.Strafing.performed += value => _playerController.SetStrafingInput(value.ReadValue<float>());
-        
+        _playerInput.PlayerMovement.Strafing.performed += value => _playerController.SetStrafingInput(value.ReadValue<float>()); //Read value from Strafing in Input Actions and put it to SetStrafingInput();
+
         _playerInput.Enable();
     }
 

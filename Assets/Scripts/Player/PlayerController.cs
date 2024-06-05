@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private Vector3 groundCheckPoint;
     [SerializeField] 
-    private float radius;
+    private float radius; //radius of ground check
     [SerializeField]
     private LayerMask groundLayer;
 
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _cameraObject = Camera.main.transform;
+        _cameraObject = Camera.main.transform; //get component from main camera
     }
 
     private void FixedUpdate()
@@ -58,13 +58,16 @@ public class PlayerController : MonoBehaviour
         var velocity = _rb.velocity;
         velocity.y = 0;
         
+        //set conditions for running animation
         if(velocity.magnitude > 0.1f && _xStrafing == 0f) 
             animator.SetBool("isRunning", true);
         else 
             animator.SetBool("isRunning", false);
         
+        //set animation for jump animation
         animator.SetBool("isGround", _isGround);
 
+        //set animation for strafing animation
         if(velocity.magnitude > 0.1f && _xStrafing < 0)
         {
             animator.SetBool("isRunning", false);
@@ -88,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement + _cameraObject.right * _xStrafing;
+        Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement + _cameraObject.right * _xStrafing; //main movement :_cameraObject.forward * _yMovement + _cameraObject.right * _xMovement + strafing movement : _cameraObject.right * _xStrafing;
         moveDirection.Normalize();
         moveDirection.y = 0;
 

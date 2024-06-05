@@ -54,15 +54,15 @@ public class CameraController : MonoBehaviour
     {
         desiredPosition = player.position -player.forward * currentDistance;
         Vector3 directionToPlayer =(player.transform.position -transform.position).normalized;
-        Debug.Log("PlayerPosition" + player.transform.position);
-        Debug.Log("CameraPosition" + transform.position);
-        Debug.Log("directionToPlayer" + player.transform.position);
+        //Debug.Log("PlayerPosition" + player.transform.position);
+        //Debug.Log("CameraPosition" + transform.position);
+        //Debug.Log("directionToPlayer" + player.transform.position);
         
         Debug.Log("directionToPlayer" + directionToPlayer);
         if (Physics.SphereCast(player.position, sphereRadius, directionToPlayer, out RaycastHit hit, maxDistance,Ground))
         {
-            Debug.Log("get obstale"+ hit.distance);
-            Debug.Log("get Mask" + Ground);
+           // Debug.Log("get obstale"+ hit.distance);
+           // Debug.Log("get Mask" + Ground);
             currentDistance = Mathf.Clamp(hit.distance,minDistance,maxDistance);
         }
         else

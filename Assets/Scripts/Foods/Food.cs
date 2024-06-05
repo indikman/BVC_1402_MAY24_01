@@ -8,42 +8,61 @@ public class Food : MonoBehaviour
 {
     #region for respawnFood
 
-
-    private bool isGrabbable = false;
-    private GameObject foodPerfab;
-    private Vector3 originalPosition;
-    // private Coroutine foodCoroutine;
-    private Renderer[] childRender;
+    [SerializeField] private GameObject[] foodPrefabs;
+    [SerializeField] private Vector3 spawnAreaMin;
+    [SerializeField] private Vector3 spawnAreaMax;
+    [SerializeField] private float respawnDuration = 5f;
+    [SerializeField] private float grabbableDelay = 2.0f; 
     #endregion
-    [SerializeField] private float respawnDuration =5f;
-   // private Material foodMaterial;
-    bool _hit = false;
+    
     void Start()
     {
-       // respawnDuration=5f;
-        originalPosition = transform.position;
-        childRender = GetComponentsInChildren<Renderer>();
-        if (childRender != null )
-        {
-            Debug.Log("get render");
-        }
-        
+        StartCoroutine(RespawnSpawnItemsWithDelay());
     }
 
-    IEnumerator RespawnCoroutine(Collider other,int respawnDuration)
+    IEnumerator RespawnSpawnItemsWithDelay()
     {
-        
-
-            Debug.Log("while");
-
-           
+        Debug.Log("respawn with delay" );
+        while (true)
+        {
+            Vector3 randomPosition = GetRandomPosition();
+            GameObject foodPrefab = GetRandomFoodPrefab();
+            GameObject foodInstance = Instantiate(foodPrefab, randomPosition, Quaternion.identity);
             yield return new WaitForSeconds(respawnDuration);
+
+            Collider foodCollider = foodInstance.GetComponent<Collider>();
+            if (foodCollider != null)
+            {
+                foodCollider.enabled = false;
+                StartCoroutine(EnableGrabbableAfterDelay(foodCollider, grabbableDelay));
+            }
+
            
-            
-            gameObject.SetActive(true);
-            
+        }
     }
-        
+
+    IEnumerator EnableGrabbableAfterDelay(Collider foodCollider, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        foodCollider.enabled = true;
+    }
+    Vector3 GetRandomPosition()
+    {
+        float x = UnityEngine.Random.Range(spawnAreaMin.x, spawnAreaMax.x);
+        float y = UnityEngine.Random.Range(spawnAreaMin.y, spawnAreaMax.y);
+        float z = UnityEngine.Random.Range(spawnAreaMin.z, spawnAreaMax.z);
+        return new Vector3(x, y, z);
+    }
+
+    GameObject GetRandomFoodPrefab()
+    {
+
+        int randomIndex = UnityEngine.Random.Range(0, foodPrefabs.Length);
+      
+       
+        return foodPrefabs[randomIndex];
+    }
+
     public int Value
     {
         get; protected set; //what does it mean for a value to be protected?
@@ -58,10 +77,8 @@ public class Food : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.AddScore(Value);
-            
-            StartCoroutine(RespawnCoroutine(other, 2));
-            gameObject.SetActive(false);
-            //isGrabbable = false;
+            Destroy(gameObject);
+          
            
         }
     }

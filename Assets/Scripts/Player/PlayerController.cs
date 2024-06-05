@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Strafe")]
     private float _xstrafeInput;
-    private float _ystrafeInput;
 
     [SerializeField] private float strafeSpeed = 1.5f;
 
@@ -102,7 +101,7 @@ public class PlayerController : MonoBehaviour
     {
      
         _xstrafeInput = input;
-        _ystrafeInput = 0f;
+        
         Debug.Log(input);//can get input already -1 and 1
     }
     private void HandleStrafe()

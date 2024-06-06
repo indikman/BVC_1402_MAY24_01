@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Timeline;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class CameraController : MonoBehaviour
 {
@@ -24,12 +25,16 @@ public class CameraController : MonoBehaviour
 
 
     #region Camera Collider variable
-    private Transform player;
+   // private Transform target;
+    [SerializeField] private GameObject ray;
+    [SerializeField] private Transform closePosition;
     [SerializeField] private float smoothSpeed;
     [SerializeField] private float minDistance;
     [SerializeField] private float maxDistance;
-    [SerializeField] float sphereRadius;
-    private LayerMask Ground;
+    [SerializeField] private float defaultDistance;
+    private Vector3 offset;
+    
+    
     private Vector3 desiredPosition;
     private float currentDistance;
 
@@ -42,55 +47,56 @@ public class CameraController : MonoBehaviour
         Cursor.visible = false;
 
         currentDistance =maxDistance;
-        player = GetComponent<Transform>();
-        OnDrawGizmos();
+      
+       
+        offset = transform.position- targetTransform.position;
+        currentDistance = defaultDistance;
     }
-    
+
     void Update()
     {
         FollowTarget();
-    }
-    private void LateUpdate()
-    {
-        desiredPosition = player.position -player.forward * currentDistance;
-        Vector3 directionToPlayer =(player.transform.position -transform.position).normalized;
-        //Debug.Log("PlayerPosition" + player.transform.position);
-        //Debug.Log("CameraPosition" + transform.position);
-        //Debug.Log("directionToPlayer" + player.transform.position);
-        
-        Debug.Log("directionToPlayer" + directionToPlayer);
-        if (Physics.SphereCast(player.position, sphereRadius, directionToPlayer, out RaycastHit hit, maxDistance,Ground))
+       
+        LayerMask obstacleMask = LayerMask.GetMask("Ground");
+        offset = transform.position - targetTransform.position;
+        Vector3 disiredPosition = targetTransform.position + offset.normalized*currentDistance;
+        Vector3 direction = (targetTransform.position - transform.position).normalized;
+
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, maxDistance, obstacleMask))
         {
-           // Debug.Log("get obstale"+ hit.distance);
-           // Debug.Log("get Mask" + Ground);
-            currentDistance = Mathf.Clamp(hit.distance,minDistance,maxDistance);
+            Debug.DrawRay(transform.position, direction * hit.distance, Color.red);
+            CloseFollowTarget();
         }
         else
         {
-            currentDistance = Mathf.Lerp(currentDistance, maxDistance, smoothSpeed * Time.deltaTime);
-            Debug.Log("not get obstale return" + maxDistance);
+            Debug.DrawRay(transform.position, direction * hit.distance, Color.green);
+            Debug.Log("not get obstacle with ray");
+            currentDistance = maxDistance;
+            FollowTarget();
         }
-        desiredPosition =player.position - player.forward*currentDistance;
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-        transform.LookAt(transform.position);
-    }
-    private void OnDrawGizmos()
-    {
-        if(player!= null)
-        {
-            Gizmos.color = Color.yellow;
-            Vector3 directionToPlayer = (player.position -transform.position).normalized;
-            Gizmos.DrawWireSphere(player.position - directionToPlayer * currentDistance, sphereRadius);
-        }
-    }
+        desiredPosition = targetTransform.position;
+        
+        transform.position = desiredPosition;
+        transform.LookAt(targetTransform.position);
 
+    }
     private void FollowTarget()
     {
+        Debug.Log("keep the default camera set up");
         Vector3 targetPosition = Vector3.SmoothDamp(transform.position, targetTransform.position,
             ref _cameraFollowVelocity, cameraFollowSpeed);
         transform.position = targetPosition;
     }
 
+    private void CloseFollowTarget()
+    {
+        Vector3 targetPosition =targetTransform.position + offset.normalized*currentDistance;
+        Debug.Log("push forward camera now");
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition,
+             ref _cameraFollowVelocity, cameraFollowSpeed);
+        transform.LookAt(targetTransform);
+       
+    }
     public void RotateCamera(Vector2 mouseInput)
     {
         Vector3 lookRotation = Vector3.zero;

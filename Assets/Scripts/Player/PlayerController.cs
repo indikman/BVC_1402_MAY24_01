@@ -87,6 +87,11 @@ public class PlayerController : MonoBehaviour
         _yMovement = input.y;
     }
 
+    public float strafeSpeed = 5f; // adjust this value to control strafing speed
+
+    
+
+
     public void Jump()
     {
         if(!_isGround) return;
@@ -103,5 +108,6 @@ public class PlayerController : MonoBehaviour
     {
         _isGround = Physics.CheckSphere(transform.position + groundCheckPoint, radius, groundLayer);
     }
-   
+
+  
 }

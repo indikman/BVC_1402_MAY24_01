@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Side walk",
+                    "type": "Button",
+                    "id": "d1e40490-9c38-47fc-ad21-9539947fcbd7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -110,6 +119,39 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "800221d6-4b1c-4f4c-94bb-214ae731972d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Side walk",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "98d9947f-b25b-485a-b88b-b3937f424cc8",
+                    "path": "e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Side walk",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "fef8d8da-7f16-40a5-9d8f-ad22485392de",
+                    "path": "q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Side walk",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

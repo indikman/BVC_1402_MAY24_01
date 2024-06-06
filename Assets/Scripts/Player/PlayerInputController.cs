@@ -25,5 +25,4 @@ public class PlayerInputController : MonoBehaviour
         
         _playerInput.Enable();
     }
-
 }

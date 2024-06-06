@@ -9,10 +9,4 @@ public class Cake : Food
     {
         Value = GameConstants.CakeValue;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

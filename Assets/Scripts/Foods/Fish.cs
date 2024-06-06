@@ -9,10 +9,4 @@ public class Fish : Food
     {
         Value = GameConstants.FishValue;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

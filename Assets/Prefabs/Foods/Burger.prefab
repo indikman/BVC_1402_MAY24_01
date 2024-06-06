@@ -118,3 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ca2364bd2163643afa4a1b173d5495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _value: 10
+  respawnTime: 10
+  respawnDuration: 5
+  rotationSpeed: 60

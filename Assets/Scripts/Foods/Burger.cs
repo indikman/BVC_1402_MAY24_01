@@ -9,10 +9,4 @@ public class Burger : Food
     {
         Value = GameConstants.BurgerValue;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

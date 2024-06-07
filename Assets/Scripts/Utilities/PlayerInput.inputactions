@@ -7,9 +7,9 @@
             "actions": [
                 {
                     "name": "Movement",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "104c380c-a2a3-4cbc-89d4-3e02ac990b4d",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -28,6 +28,15 @@
                     "type": "Button",
                     "id": "ed90c466-998e-4761-8e1c-8c5c18452acc",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Strafe",
+                    "type": "PassThrough",
+                    "id": "f58c2825-1bcb-4ab4-ae1b-3274a0f1291c",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -110,6 +119,39 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "StrafeButton",
+                    "id": "696726c2-e083-47ef-a6a5-918e36f007ae",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Strafe",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "c4c94d50-8d97-4357-86b9-ad18d0af78c1",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Strafe",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "e4cc4cb2-9675-46ee-b3fc-0ce3c8858e91",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Strafe",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

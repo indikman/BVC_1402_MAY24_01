@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float walkSpeed = 1.5f;
     [SerializeField] private float rotationSpeed = 15f;
 
+    [Header("Strafe Settings")]
+    [SerializeField] private float strafeSpeed = 1.5f;
+    [SerializeField] private string strafeLeftTrig = "StrafeLeft";
+    [SerializeField] private string strafeRightTrig = "StrafeRight";
+
     [Header("Jump")] 
     [SerializeField] private float jumpVelocity = 20f;
 
@@ -26,6 +31,8 @@ public class PlayerController : MonoBehaviour
     private float _yMovement;
     private float _movementAmount;
     private bool _isGround;
+    private bool isStrafeLeft;
+    private bool isStrafeRight;
 
     private void Awake()
     {
@@ -52,6 +59,9 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isRunning", false);
         
         animator.SetBool("isGround", _isGround);
+
+        animator.SetBool("isStrafingLeft", isStrafeLeft);
+        animator.SetBool("isStrafingRight", isStrafeRight);
     }
 
     private void HandleMovement()
@@ -59,6 +69,21 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
         moveDirection.Normalize();
         moveDirection.y = 0;
+
+        if (isStrafeLeft)
+        {
+            moveDirection -= _cameraObject.right * strafeSpeed;
+        }
+        else if (isStrafeRight)
+        {
+            moveDirection += _cameraObject.right * strafeSpeed;
+        }
+        else
+        {
+            isStrafeLeft = false;
+
+            isStrafeRight = false;
+        }
 
         moveDirection *= walkSpeed;
 
@@ -85,6 +110,9 @@ public class PlayerController : MonoBehaviour
     {
         _xMovement = input.x;
         _yMovement = input.y;
+
+        isStrafeLeft = Input.GetKey(KeyCode.Q);
+        isStrafeRight = Input.GetKey(KeyCode.E);
     }
 
     public void Jump()

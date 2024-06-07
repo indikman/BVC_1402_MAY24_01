@@ -1,26 +1,53 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Food : MonoBehaviour
 {
-    
     bool _hit = false;
-    public int Value
+    public int Value { get; protected set; }
+
+    [SerializeField] float respawnTime = 5f;
+    Vector3 originalPosition;
+
+    BoxCollider itemCollider;
+
+    private void Awake()
     {
-        get; protected set; //what does it mean for a value to be protected?
+        originalPosition = transform.position;
+        itemCollider = GetComponentInChildren<BoxCollider>();
     }
-    void Awake()
+    void Start()
     {
+        originalPosition = transform.position;
         
+        StartCoroutine(RespawnItemCoroutine());
+    }
+
+    IEnumerator RespawnItemCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(respawnTime);
+            RespawnItem();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
+    {;
             GameManager.Instance.AddScore(Value);
-            Destroy(gameObject);
-        }
+            CollectItem();
+    }
+
+    void CollectItem()
+    {
+        gameObject.SetActive(false);
+        Invoke(nameof(RespawnItem), 5f);
+    }
+
+    void RespawnItem()
+    {
+        gameObject.SetActive(true);
+        itemCollider.enabled = true;
+        transform.position = originalPosition;
     }
 }

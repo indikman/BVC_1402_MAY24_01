@@ -7,7 +7,7 @@ public class GameTimer : MonoBehaviour
 {
     [SerializeField] private int timerStartValue = 120;
     
-    private int _timerValue;
+    public int _timerValue;
     private Coroutine _timerCoroutine;
     private bool _isTimerRunning;
 

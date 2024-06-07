@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +27,15 @@ public class GameManager : MonoBehaviour
     {
         _gameTimer = GetComponent<GameTimer>();
         _gameTimer.StartTimer();
+
+        
+    }
+    void Update()
+    {
+        if (GetComponent<GameTimer>()._timerValue <= 0)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     public void AddScore(int value)

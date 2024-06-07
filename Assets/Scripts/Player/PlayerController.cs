@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 1.5f;
     [SerializeField] private float rotationSpeed = 15f;
+    [SerializeField] private bool isStrafing = false;
 
     [Header("Jump")] 
     [SerializeField] private float jumpVelocity = 20f;
@@ -45,18 +47,21 @@ public class PlayerController : MonoBehaviour
 
         var velocity = _rb.velocity;
         velocity.y = 0;
-        
-        if(velocity.magnitude > 0.1f) 
+
+        if (velocity.magnitude > 0.1f) 
             animator.SetBool("isRunning", true);
         else 
             animator.SetBool("isRunning", false);
         
         animator.SetBool("isGround", _isGround);
+
+        CheckStrafing();
     }
 
     private void HandleMovement()
-    {
+    { 
         Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
+        
         moveDirection.Normalize();
         moveDirection.y = 0;
 
@@ -70,6 +75,12 @@ public class PlayerController : MonoBehaviour
     private void HandleRotation()
     {
         Vector3 targetDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
+
+        if (isStrafing)
+        {
+            targetDirection = _cameraObject.forward * _yMovement;
+        }
+
         targetDirection.Normalize();
         targetDirection.y = 0;
 
@@ -102,6 +113,18 @@ public class PlayerController : MonoBehaviour
     private void GroundCheck()
     {
         _isGround = Physics.CheckSphere(transform.position + groundCheckPoint, radius, groundLayer);
+    }
+
+    private void CheckStrafing()
+    {
+        if (Input.GetKeyDown("q") || Input.GetKeyDown("e"))
+        {
+            isStrafing = true;
+        }
+        else if (Input.GetKeyDown("a") || Input.GetKeyDown("d"))
+        {
+            isStrafing = false;
+        }
     }
    
 }

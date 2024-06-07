@@ -59,8 +59,6 @@ public class Food : MonoBehaviour
 
         int randomIndex = UnityEngine.Random.Range(0, foodPrefabs.Length);
         Debug.Log("Length" + foodPrefabs.Length);
-      
-       
         return foodPrefabs[randomIndex];
     }
 

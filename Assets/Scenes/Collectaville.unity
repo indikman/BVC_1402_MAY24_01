@@ -335,8 +335,8 @@ MonoBehaviour:
   - {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
   - {fileID: 141734988828101162, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
   - {fileID: 8438054040456672074, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
-  spawnAreaMin: {x: 1, y: 1, z: 1}
-  spawnAreaMax: {x: 10, y: 1, z: 10}
+  spawnAreaMin: {x: 1, y: 0.6, z: 1}
+  spawnAreaMax: {x: 20, y: 1, z: 20}
   respawnDuration: 5
   grabbableDelay: 2
 --- !u!4 &419457671
@@ -744,19 +744,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4654345b6399468cb8ac9dc0c1bad77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 1577428353}
+  playerTransform: {fileID: 1577428353}
   cameraFollowSpeed: 0.2
   cameraLookSpeed: 2
-  cameraPivotSpeed: 2
+  cameraPivotSpeed: 1
   minPivotAngle: -35
   maxPivotAngle: 35
   cameraPivot: {fileID: 215930011}
   ray: {fileID: 1351138604}
-  closePosition: {fileID: 856212823}
-  smoothSpeed: 3
-  minDistance: 2
-  maxDistance: 50
-  defaultDistance: 50
+  smoothSpeed: 6
+  cameraHeight: 0.5
+  maxDistance: 3
+  defaultDistance: 6
 --- !u!4 &994035226 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2503225422547207265, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}

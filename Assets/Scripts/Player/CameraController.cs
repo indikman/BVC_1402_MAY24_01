@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform targetTransform;
+    [SerializeField] private Transform playerTransform;
     
     [Header("Camera Speeds")]
     [SerializeField] private float cameraFollowSpeed = 0.2f;
@@ -25,78 +27,53 @@ public class CameraController : MonoBehaviour
 
 
     #region Camera Collider variable
-   // private Transform target;
+    
     [SerializeField] private GameObject ray;
-    [SerializeField] private Transform closePosition;
     [SerializeField] private float smoothSpeed;
-    [SerializeField] private float minDistance;
+    [SerializeField] private float cameraHeight=0.8f;
+    private float obstacleBuffer = 0.5f;
     [SerializeField] private float maxDistance;
     [SerializeField] private float defaultDistance;
-    private Vector3 offset;
-    
-    
-    private Vector3 desiredPosition;
-    private float currentDistance;
-
     #endregion
     
     
     void Start()
     {
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        currentDistance =maxDistance;
-      
-       
-        offset = transform.position- targetTransform.position;
-        currentDistance = defaultDistance;
+        FollowTarget();
     }
 
-    void Update()
+    void LateUpdate()
     {
-        FollowTarget();
-       
+        //use raycast to check obstacle
+        Vector3 targetPosition = playerTransform.position + new Vector3(0,cameraHeight,-defaultDistance);
+        Ray ray = new Ray(playerTransform.position,targetPosition-playerTransform.position);
         LayerMask obstacleMask = LayerMask.GetMask("Ground");
-        offset = transform.position - targetTransform.position;
-        Vector3 disiredPosition = targetTransform.position + offset.normalized*currentDistance;
-        Vector3 direction = (targetTransform.position - transform.position).normalized;
-
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, maxDistance, obstacleMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, obstacleMask))
         {
-            Debug.DrawRay(transform.position, direction * hit.distance, Color.red);
-            CloseFollowTarget();
+           // Debug.DrawRay(transform.position, direction * hit.distance, Color.red);
+            targetPosition = hit.point + hit.normal * obstacleBuffer;
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition,
+             ref _cameraFollowVelocity, smoothSpeed);
+            transform.LookAt(playerTransform);
         }
         else
         {
-            Debug.DrawRay(transform.position, direction * hit.distance, Color.green);
             Debug.Log("not get obstacle with ray");
-            currentDistance = maxDistance;
-            FollowTarget();
         }
-        desiredPosition = targetTransform.position;
-        
-        transform.position = desiredPosition;
-        transform.LookAt(targetTransform.position);
-
+        FollowTarget();
     }
     private void FollowTarget()
     {
         Debug.Log("keep the default camera set up");
-        Vector3 targetPosition = Vector3.SmoothDamp(transform.position, targetTransform.position,
+        Vector3 targetPosition = Vector3.SmoothDamp(transform.position, playerTransform.position,
             ref _cameraFollowVelocity, cameraFollowSpeed);
         transform.position = targetPosition;
+       // transform.LookAt(playerTransform);
     }
 
-    private void CloseFollowTarget()
-    {
-        Vector3 targetPosition =targetTransform.position + offset.normalized*currentDistance;
-        Debug.Log("push forward camera now");
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition,
-             ref _cameraFollowVelocity, cameraFollowSpeed);
-        transform.LookAt(targetTransform);
-       
-    }
     public void RotateCamera(Vector2 mouseInput)
     {
         Vector3 lookRotation = Vector3.zero;

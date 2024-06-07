@@ -275,9 +275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23b05083581745f2b50c4d11f9d36b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _respawnTime: 10
+  _respawnTime: 2
   _burgerPrefab: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
-  _burgerSpawnRadius: 10
+  _burgerSpawnRadius: 2
   scoreText: {fileID: 2117376913}
 --- !u!4 &215930011 stripped
 Transform:
@@ -791,11 +791,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63358239ea344a34f99500f11a7ccde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistance: 1
-  maxDistance: 4
-  smooth: 10
-  dollyDirAdjustment: {x: 0, y: 0, z: 0}
-  distance: 0
+  _minDistance: 1
+  _maxDistance: 4
+  _zoomCamera: 10
+  _distance: 0
 --- !u!1001 &1577428347
 PrefabInstance:
   m_ObjectHideFlags: 0

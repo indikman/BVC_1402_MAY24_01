@@ -6,38 +6,36 @@ using UnityEngine.UIElements;
 public class CameraCollider : MonoBehaviour
 {
     [SerializeField]
-    private float minDistance = 1.0f;
+    private float _minDistance = 1.0f;
     [SerializeField]
-    private float maxDistance = 4.0f;
+    private float _maxDistance = 4.0f;
     [SerializeField]
-    private float smooth = 10f;
-    Vector3 dollyDir;
+    private float _zoomCamera = 10f;
+    Vector3 _dollyDir;
     [SerializeField]
-    private Vector3 dollyDirAdjustment;
-    [SerializeField]
-    private float distance;
+    private float _distance;
 
 
     private void Awake()
     {
-        dollyDir = transform.localPosition.normalized;
-        distance = transform.localPosition.magnitude;
+        _dollyDir = transform.localPosition.normalized;
+        _distance = transform.localPosition.magnitude;
     }
 
 
     void Update()
     {
-        Vector3 desiredCameraPos = transform.parent.TransformPoint(dollyDir * maxDistance);
+        Vector3 desiredCameraPos = transform.parent.TransformPoint(_dollyDir * _maxDistance);
         RaycastHit hit;
 
-        if(Physics.Raycast(transform.parent.position, desiredCameraPos, out hit))
+        if(Physics.Linecast(transform.parent.position, desiredCameraPos, out hit))
         {
-            distance = Mathf.Clamp((hit.distance * 0.9f), minDistance, maxDistance);
+            _distance = Mathf.Clamp((hit.distance * 0.9f), _minDistance, _maxDistance);
         }
         else
         {
-            distance = maxDistance;
+            _distance = _maxDistance;
         }
-        transform.localPosition = Vector3.Lerp(transform.localPosition, dollyDir * distance, Time.deltaTime * smooth);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, _dollyDir * _distance, Time.deltaTime * _zoomCamera);
     }
 }

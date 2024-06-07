@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private float _xMovement;
     private float _yMovement;
+    private float _strafeInput;
     private bool _isGround;
 
     private void Awake()
@@ -54,34 +55,38 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isGround", _isGround);
 
         // Captura os inputs de movimento padrão
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalInput = Input.GetAxis("Horizontal"); // Para A e D
         float verticalInput = Input.GetAxis("Vertical");
 
         // Atualiza o movimento no PlayerController
         SetMovementInput(new Vector2(horizontalInput, verticalInput));
 
         // Captura os inputs de strafe
-        float strafeInput = 0f;
+        _strafeInput = 0f;
         if (Input.GetKey(KeyCode.Q))
         {
-            strafeInput = -1f;
+            _strafeInput = -1f;
+            animator.SetBool("isStrafingLeft", _strafeInput == -1f);
         }
         else if (Input.GetKey(KeyCode.E))
         {
-            strafeInput = 1f;
+            _strafeInput = 1f;
+            animator.SetBool("isStrafingRight", _strafeInput == 1f);
+
         }
 
-        SetStrafeInput(strafeInput);
+        // Define animações de strafe
+
     }
 
     private void HandleMovement()
     {
-        Vector3 moveDirection = _cameraObject.forward * _yMovement; // Movimento para frente e para trás
+        Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement; // Inclui movimento para frente, trás, esquerda e direita
         moveDirection.Normalize();
         moveDirection *= walkSpeed;
 
         // Adiciona movimento lateral com base no input de strafe
-        moveDirection += transform.right * _xMovement * strafeSpeed;
+        moveDirection += transform.right * _strafeInput * strafeSpeed;
 
         moveDirection.y = _rb.velocity.y;
 
@@ -90,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleRotation()
     {
-        Vector3 targetDirection = _cameraObject.forward * _yMovement;
+        Vector3 targetDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement; // Inclui a direção para frente e para os lados
         targetDirection.Normalize();
         targetDirection.y = 0;
 
@@ -106,11 +111,6 @@ public class PlayerController : MonoBehaviour
     {
         _xMovement = input.x;
         _yMovement = input.y;
-    }
-
-    public void SetStrafeInput(float strafeInput)
-    {
-        _xMovement = strafeInput;
     }
 
     public void Jump()

@@ -8,11 +8,13 @@ public class PlayerController : MonoBehaviour
     private Transform _cameraObject;
     private Rigidbody _rb;
 
+    bool shouldStrafe = false;
+
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 1.5f;
     [SerializeField] private float rotationSpeed = 15f;
 
-    [Header("Jump")] 
+    [Header("Jump")]
     [SerializeField] private float jumpVelocity = 20f;
 
     [SerializeField] private Vector3 groundCheckPoint;
@@ -45,54 +47,53 @@ public class PlayerController : MonoBehaviour
 
         var velocity = _rb.velocity;
         velocity.y = 0;
-        
-        if (_yMovement < 0)
+
+
+
+        if (_rb.velocity.magnitude < 0.1f)
         {
-           
-            animator.SetBool("isRunning", true);
-        }
-        else if (_yMovement == 0)
-        {
+
             animator.SetBool("isRunning", false);
 
             animator.SetBool("isGround", _isGround);
         }
 
-        if (_yMovement > 0)
+
+        if (shouldStrafe)
+        {
+            if (_xMovement > 0)
+            {
+
+                animator.SetBool("isStrafingRight", true);
+            }
+            else
+            {
+                animator.SetBool("isStrafingRight", false);
+
+                animator.SetBool("isGround", _isGround);
+            }
+
+            if (_xMovement < 0)
+            {
+
+                animator.SetBool("isStrafingLeft", true);
+            }
+            else
+            {
+                animator.SetBool("isStrafingLeft", false);
+
+                animator.SetBool("isGround", _isGround);
+            }
+
+            return;
+        }
+
+        if (_rb.velocity.magnitude > 0.1f)
         {
 
             animator.SetBool("isRunning", true);
         }
-        else if (_yMovement == 0)
-        {
-            animator.SetBool("isRunning", false);
 
-            animator.SetBool("isGround", _isGround);
-        }
-
-        if (_xMovement > 0)
-        {
-
-            animator.SetBool("isStrafingRight", true);
-        }
-        else
-        {
-            animator.SetBool("isStrafingRight", false);
-
-            animator.SetBool("isGround", _isGround);
-        }
-
-        if (_xMovement < 0)
-        {
-
-            animator.SetBool("isStrafingLeft", true);
-        }
-        else
-        {
-            animator.SetBool("isStrafingLeft", false);
-
-            animator.SetBool("isGround", _isGround);
-        }
 
     }
 
@@ -126,15 +127,29 @@ public class PlayerController : MonoBehaviour
     public void SetMovementInput(Vector2 input)
     {
         _xMovement = input.x;
+        if (input.x != 0)
+        {
+            shouldStrafe = false;
+        }
+        if (input.y != 0)
+        {
+            shouldStrafe = false;
+        }
         _yMovement = input.y;
+    }
+
+    public void SetStrafeInput(float input)
+    {
+        shouldStrafe = true;
+        _xMovement = input;
     }
 
     public void Jump()
     {
-        if(!_isGround) return;
-        
+        if (!_isGround) return;
+
         animator.SetTrigger("jump");
-        
+
         Vector3 currentVelocity = _rb.velocity;
         currentVelocity.y = jumpVelocity;
 
@@ -145,5 +160,5 @@ public class PlayerController : MonoBehaviour
     {
         _isGround = Physics.CheckSphere(transform.position + groundCheckPoint, radius, groundLayer);
     }
-   
+
 }

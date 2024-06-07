@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,48 @@ public class CameraController : MonoBehaviour
     private float _lookAngle = 0f;
     private float _pivotAngle = 0f;
     
+    // Camera collision variables
+    private Camera camera;
+    [SerializeField] private LayerMask collisionMask;
+    private float initialDistance;
+    [SerializeField] private float collisionOffset  = 0.2f;
+    [SerializeField] private float minDistanceToTarget  = 1f;
+    private float zoomDistance;
+    [SerializeField] private float zoomSmoothing  = 0.5f; // Smoothness parameter for zooming in and out
+
+
+    private void Awake()
+    {
+        targetTransform = FindObjectOfType<PlayerController>().transform;
+        camera = GetComponentInChildren<Camera>();
+        initialDistance = camera.transform.localPosition.z;
+        zoomDistance = initialDistance;
+    }
+    
+    private void HandleCameraCollision()
+    {
+        //Vector3 intendedCameraPosition = cameraPivot.TransformPoint(new Vector3(0, zoomDistance, 0));
+
+        Vector3 intendedCameraPosition = cameraPivot.TransformPoint(new Vector3(0, 0, zoomDistance));
+    
+        RaycastHit collisionHit;
+        bool hasCollision = Physics.Linecast(cameraPivot.position, intendedCameraPosition, out collisionHit, collisionMask);
+        float adjustedDistance = hasCollision ? collisionHit.distance - collisionOffset : initialDistance;
+
+        if (hasCollision && adjustedDistance < minDistanceToTarget)
+        {
+            // adjustedDistance = 0;
+            
+            
+            adjustedDistance = minDistanceToTarget;
+        }
+
+        zoomDistance = Mathf.Lerp(zoomDistance, adjustedDistance, zoomSmoothing * Time.deltaTime);
+
+        camera.transform.position = cameraPivot.TransformPoint(new Vector3(0, 0, zoomDistance));
+    }
+
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -30,6 +73,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         FollowTarget();
+        HandleCameraCollision();
     }
 
     private void FollowTarget()

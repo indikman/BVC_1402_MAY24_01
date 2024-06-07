@@ -118,3 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d726f2da7f3e79478930b2870f17bc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objMeshRenderer: {fileID: 2100000, guid: df7fe48a4062d5448bff2a0f1470487e, type: 2}

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class GameTimer : MonoBehaviour
 {
-    [SerializeField] private int timerStartValue = 120;
+    [SerializeField] 
+    private int timerStartValue = 120;
     
     private int _timerValue;
     private Coroutine _timerCoroutine;

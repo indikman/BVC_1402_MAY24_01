@@ -18,6 +18,7 @@ public class PlayerInputController : MonoBehaviour
         _cameraController = FindObjectOfType<CameraController>(); // This is an expensive method, should not be used frequently
 
         _playerInput = new PlayerInput();
+
         _playerInput.PlayerMovement.Movement.performed += 
             value => _playerController.SetMovementInput(value.ReadValue<Vector2>());
 

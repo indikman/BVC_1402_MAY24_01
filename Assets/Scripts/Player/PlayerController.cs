@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleRotation();
 
-
         RaycastHit hit;
       
         if (Physics.Raycast(_cameraPivot.transform.position, _cameraObject.transform.position - _cameraPivot.transform.position, out hit))
@@ -120,15 +119,10 @@ public class PlayerController : MonoBehaviour
             moveDirection *= walkSpeed;
             moveDirection.y = _rb.velocity.y;
             _rb.velocity = moveDirection;
-    
-
-        
-
     }
 
     public void SetStrafe(float input)
     {
-        
         _strafeMovement = input;
     }
 

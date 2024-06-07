@@ -31,10 +31,6 @@ public class GameManager : MonoBehaviour
         _gameTimer = GetComponent<GameTimer>();
         _gameTimer.StartTimer();
     }
-    public void Update()
-    {
-       
-    }
     public void AddScore(int value)
     {
         _score += value;

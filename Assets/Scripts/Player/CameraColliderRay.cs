@@ -7,21 +7,21 @@ public class CameraColliderRay : MonoBehaviour
 
     public float minDistance = 1f;
     public float maxDistance = 4f;
+    [SerializeField]
     public float smooth = 10f;
-    Vector3 dollyDir;
-    public Vector3 dollyDirAdjusted;
+    Vector3 cameraPos;
     public float distance;
     // Start is called before the first frame update
     void Awake()
     {
-        dollyDir = transform.localPosition.normalized;
+        cameraPos = transform.localPosition.normalized;
         distance = transform.localPosition.magnitude;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 desiredPosition = transform.parent.TransformPoint (dollyDir * maxDistance);
+        Vector3 desiredPosition = transform.parent.TransformPoint (cameraPos * maxDistance);
         RaycastHit hit;
         if(Physics.Linecast (transform.parent.position, desiredPosition, out hit))
         {
@@ -32,6 +32,6 @@ public class CameraColliderRay : MonoBehaviour
             distance = maxDistance;
         }
 
-        transform.localPosition = Vector3.Lerp(transform.localPosition, dollyDir * distance, Time.deltaTime * smooth);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, cameraPos * distance, Time.deltaTime * smooth);
     }
 }

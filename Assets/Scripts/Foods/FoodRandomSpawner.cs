@@ -18,7 +18,7 @@ public class FoodRandomSpawner : MonoBehaviour
     {
         while (true)
         {
-            Vector3 randomSpawnPosition = new Vector3(Random.Range(_xSpawnRangeMin, _xSpawnRangeMax), 5, Random.Range(_ySpawnRangeMin, _ySpawnRangeMax));
+            Vector3 randomSpawnPosition = new Vector3(Random.Range(_xSpawnRangeMin, _xSpawnRangeMax), 1, Random.Range(_ySpawnRangeMin, _ySpawnRangeMax));
             Instantiate(foodList[Random.Range(0, foodList.Count)], randomSpawnPosition, Quaternion.identity);
             Debug.Log("Got something for you!");
             yield return new WaitForSeconds(Random.Range(1,3));

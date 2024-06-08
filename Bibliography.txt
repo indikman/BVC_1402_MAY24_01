@@ -1,0 +1,15 @@
+Bibliography
+
+https://stargamesstudio.com/unity-character-controller-strafing-rotating/ --> For adjust strafing into main movement
+
+https://discussions.unity.com/t/how-to-rotate-object-with-camera-around-y-axis-only-of-player/71999 --> To rotate character with camera only y axis
+
+https://www.youtube.com/watch?v=LbDQHv9z-F0 ---> to create a camera collider
+
+https://www.youtube.com/watch?v=Cfcr7FtbYQo ---> Spherecast
+
+https://www.youtube.com/watch?v=gfD8S32xzY ---> for spawn randomly on terrain
+
+Someone who helped me about this assignment
+- William Chen : He help me about how to used put the same values of exist movement values to strafe movement
+- Enzo Coutinho : He gave me a reference video about camera collider that he used

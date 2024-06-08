@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.54886997, g: 0.7945225, b: 0.9728404, a: 1}
+  m_IndirectSpecularColor: {r: 0.54935646, g: 0.7941612, b: 0.9733915, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -244,7 +244,7 @@ Transform:
   m_GameObject: {fileID: 169135088}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.73117, y: 1.0450547, z: -0.10001289}
+  m_LocalPosition: {x: 0.05, y: 0.27, z: -4.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -275,6 +275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23b05083581745f2b50c4d11f9d36b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _respawnTime: 2
+  cakePrefab: {fileID: 1197025697}
+  cakeSpawnRadius: 2
   scoreText: {fileID: 2117376913}
 --- !u!4 &215930011 stripped
 Transform:
@@ -704,6 +707,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 917251402817431948, guid: 58d585576d9fc334d8eb9ad00435097c, type: 3}
   m_PrefabInstance: {fileID: 1005394307}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1197025697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+  m_PrefabInstance: {fileID: 4074010100721418145}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1287217374
 PrefabInstance:
@@ -1629,6 +1637,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2503225422547207279, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
       insertIndex: -1
       addedObject: {fileID: 994035223}
+    - targetCorrespondingSourceObject: {fileID: 2503225421799454488, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1947112886}
   m_SourcePrefab: {fileID: 100100000, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
 --- !u!1 &1915520290
 GameObject:
@@ -1733,6 +1744,26 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1947112884 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2503225421799454488, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+  m_PrefabInstance: {fileID: 1871248319}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1947112886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947112884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0796fe981999d64dbfeca782a45b7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDistance: 1
+  maxDistance: 4
+  smoothSpeed: 10
 --- !u!1 &1992808406 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2811249665218319091, guid: d9c5760e29be42140ae654d87ea602d1, type: 3}

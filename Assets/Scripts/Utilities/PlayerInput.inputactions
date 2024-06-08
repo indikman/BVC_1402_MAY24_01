@@ -122,7 +122,7 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "800221d6-4b1c-4f4c-94bb-214ae731972d",
+                    "id": "423cfba4-c2ca-4304-ad9c-885828ba5558",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -133,8 +133,8 @@
                 },
                 {
                     "name": "negative",
-                    "id": "98d9947f-b25b-485a-b88b-b3937f424cc8",
-                    "path": "e",
+                    "id": "9a87f7c0-17bf-4eac-927f-0e05ab995afa",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -144,8 +144,8 @@
                 },
                 {
                     "name": "positive",
-                    "id": "fef8d8da-7f16-40a5-9d8f-ad22485392de",
-                    "path": "q",
+                    "id": "e9375d64-0baf-4d31-994d-5827c0137c63",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

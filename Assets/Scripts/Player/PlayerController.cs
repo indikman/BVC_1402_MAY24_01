@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private float _yMovement;
     private float _movementAmount;
     private bool _isGround;
-
+    float move;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleRotation();
+        Walk();
     }
 
     private void Update()
@@ -46,12 +47,36 @@ public class PlayerController : MonoBehaviour
         var velocity = _rb.velocity;
         velocity.y = 0;
         
-        if(velocity.magnitude > 0.1f) 
+        if(velocity.magnitude > 0.1f && move == 0 ) 
             animator.SetBool("isRunning", true);
         else 
             animator.SetBool("isRunning", false);
         
         animator.SetBool("isGround", _isGround);
+    }
+    private void Walk()
+    {
+        move = 0f;
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            move = -1f; // Move left
+            animator.SetBool("LeftWalk", true);
+        }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            move = 1f; // Move right
+            animator.SetBool("RightWalk", true);
+        }
+        else
+        {
+            animator.SetBool("LeftWalk", false);
+            animator.SetBool("RightWalk", false);
+
+        }
+
+        // Apply the movement to the GameObject
+        transform.Translate(Vector3.right * move * walkSpeed * Time.deltaTime);
     }
 
     private void HandleMovement()

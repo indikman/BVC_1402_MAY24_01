@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float _respawnTime;
     [SerializeField]
-    GameObject _burgerPrefab;
+    public List<GameObject> _foodItems = new List<GameObject>();
     [SerializeField]
     private float _burgerSpawnRadius;
 
@@ -32,21 +33,20 @@ public class GameManager : MonoBehaviour
     private IEnumerator RespawnTimer()
     {
         yield return new WaitForSeconds(_respawnTime);
-        Instantiate(_burgerPrefab, this.transform.position + new Vector3(Random.Range(-_burgerSpawnRadius, _burgerSpawnRadius), -0.5f, Random.Range(-_burgerSpawnRadius, _burgerSpawnRadius)),Quaternion.identity);
-        _respawnCollectable = StartCoroutine(RespawnTimer());
+        Instantiate(_foodItems.ElementAt(Random.Range(0,_foodItems.Count)), this.transform.position + new Vector3(Random.Range(-_burgerSpawnRadius, _burgerSpawnRadius), -0.5f, Random.Range(-_burgerSpawnRadius, _burgerSpawnRadius)),Quaternion.identity); 
     }
     
     void Start()
     {
         _gameTimer = GetComponent<GameTimer>();
         _gameTimer.StartTimer();
-        _respawnCollectable = StartCoroutine(RespawnTimer());
     }
 
     public void AddScore(int value)
     {
         _score += value;
         scoreText.text = _score.ToString();
+        _respawnCollectable = StartCoroutine(RespawnTimer());
     }
 
     

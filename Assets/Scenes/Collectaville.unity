@@ -275,9 +275,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23b05083581745f2b50c4d11f9d36b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _respawnTime: 2
-  _burgerPrefab: {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
-  _burgerSpawnRadius: 2
+  _respawnTime: 5
+  _foodItems:
+  - {fileID: 572357263643718454, guid: 58d585576d9fc334d8eb9ad00435097c, type: 3}
+  - {fileID: 2609478474735385016, guid: 15ec4f120faa795428183cd1905f907d, type: 3}
+  - {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
+  - {fileID: 141734988828101162, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
+  - {fileID: 8438054040456672074, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
+  _burgerSpawnRadius: 4
   scoreText: {fileID: 2117376913}
 --- !u!4 &215930011 stripped
 Transform:

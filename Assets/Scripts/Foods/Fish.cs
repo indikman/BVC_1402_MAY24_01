@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class Fish : Food
 {
-    // Start is called before the first frame update
+    private Coroutine _waitUntil;
+    private bool _isMoving;
+    private float _timeUntilPickup = 5f;
+
     void Start()
     {
-        Value = GameConstants.FishValue;
+        Value = GameConstants.BurgerValue;
+        GetComponent<BoxCollider>().enabled = false;
+        _waitUntil = StartCoroutine(EnableCollision());
+        _isMoving = true;
     }
 
-    // Update is called once per frame
+    private IEnumerator EnableCollision()
+    {
+        yield return new WaitForSeconds(_timeUntilPickup);
+        GetComponent<BoxCollider>().enabled = true;
+        _isMoving = false;
+        _waitUntil = StartCoroutine(EnableCollision());
+    }
+
     void Update()
     {
-        
+        if (_isMoving == true)
+        {
+            transform.Translate(transform.up * 0.15f * Time.deltaTime);
+        }
+
     }
 }

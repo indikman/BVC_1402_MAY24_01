@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Strafing",
+                    "type": "PassThrough",
+                    "id": "8be0cf6a-0762-4a10-ab2d-c81979669d6c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -90,39 +99,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Strafing",
-                    "id": "d8b0b742-06ea-4aab-9a48-e3a064e52765",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "left",
-                    "id": "e7d8060d-84be-4404-8977-9a67d562ae6c",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "7cb58ede-a0d9-4747-9549-0b46a8a6a5ab",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "f8baa5b8-6cf9-409c-ac97-2503000d6482",
                     "path": "<Mouse>/delta",
@@ -143,6 +119,39 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "QE",
+                    "id": "595c3b82-9adb-41fc-8287-02fe157fd72c",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Strafing",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "7a741229-6ce6-4278-861f-5e22f3ea516e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Strafing",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "ab63c717-7192-4d96-9faa-41bf00e0caf9",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Strafing",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

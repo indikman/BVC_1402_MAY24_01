@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.Windows;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     private float _xMovement;
     private float _yMovement;
+    private float _strafingMovement;
     private float _movementAmount;
     private bool _isGround;
 
@@ -37,8 +41,15 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        HandleMovement();
-        HandleRotation();
+        if (!isStrafing)
+        {
+            HandleMovement();
+            HandleRotation();
+        }
+        else
+        {
+            HandleStrafing();
+        }
     }
 
     private void Update()
@@ -48,20 +59,23 @@ public class PlayerController : MonoBehaviour
         var velocity = _rb.velocity;
         velocity.y = 0;
 
-        if (velocity.magnitude > 0.1f) 
+        if (velocity.magnitude > 0.1f)
+        {
             animator.SetBool("isRunning", true);
-        else 
+        }
+        else
+        {
             animator.SetBool("isRunning", false);
+        }  
         
         animator.SetBool("isGround", _isGround);
-
-        CheckStrafing();
+        
     }
-
     private void HandleMovement()
     { 
         Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
         
+      
         moveDirection.Normalize();
         moveDirection.y = 0;
 
@@ -75,11 +89,6 @@ public class PlayerController : MonoBehaviour
     private void HandleRotation()
     {
         Vector3 targetDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
-
-        if (isStrafing)
-        {
-            targetDirection = _cameraObject.forward * _yMovement;
-        }
 
         targetDirection.Normalize();
         targetDirection.y = 0;
@@ -96,6 +105,31 @@ public class PlayerController : MonoBehaviour
     {
         _xMovement = input.x;
         _yMovement = input.y;
+        isStrafing = false;
+    }
+    public void Strafing(Vector2 input)
+    {
+        _strafingMovement = input.x;
+        if (input.x != 0)
+        {
+            isStrafing = true;
+        }
+
+    }
+
+    public void HandleStrafing()
+    {
+        Vector3 moveDirection = gameObject.transform.right * _strafingMovement;
+
+
+        moveDirection.Normalize();
+        moveDirection.y = 0;
+
+        moveDirection *= walkSpeed;
+
+        moveDirection.y = _rb.velocity.y;
+
+        _rb.velocity = moveDirection;
     }
 
     public void Jump()
@@ -113,18 +147,6 @@ public class PlayerController : MonoBehaviour
     private void GroundCheck()
     {
         _isGround = Physics.CheckSphere(transform.position + groundCheckPoint, radius, groundLayer);
-    }
-
-    private void CheckStrafing()
-    {
-        if (Input.GetKeyDown("q") || Input.GetKeyDown("e"))
-        {
-            isStrafing = true;
-        }
-        else if (Input.GetKeyDown("a") || Input.GetKeyDown("d"))
-        {
-            isStrafing = false;
-        }
     }
    
 }

@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     [SerializeField]
     List<GameObject> foodList = new List<GameObject>();
+    [SerializeField]
+    public float waitingTime = 5f;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,7 +39,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator SpawnRoutine(Vector3 respawnLocation)
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(waitingTime);
         Instantiate(foodList.ElementAt(Random.Range(0,foodList.Count)),respawnLocation,Quaternion.identity);
     }
 }

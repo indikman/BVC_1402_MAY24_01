@@ -281,6 +281,7 @@ MonoBehaviour:
   - {fileID: 6470748753848980340, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
   - {fileID: 141734988828101162, guid: 7773447ab22b16e4486097452bd7f48a, type: 3}
   - {fileID: 8438054040456672074, guid: a48f1874f2b2bfc4f893c6a472aa73e2, type: 3}
+  waitingTime: 5
   scoreText: {fileID: 2117376913}
 --- !u!4 &215930011 stripped
 Transform:
@@ -1447,7 +1448,6 @@ MonoBehaviour:
   minDistance: 1
   maxDistance: 4
   smooth: 10
-  dollyDirAdjusted: {x: 0, y: 0, z: 0}
   distance: 0
 --- !u!1 &1740916606
 GameObject:

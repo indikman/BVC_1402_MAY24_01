@@ -29,15 +29,9 @@ public class Food : MonoBehaviour
 
     void Update()
     {
-        // Gira o item lentamente no eixo Y, mas só se não estiver reaparecendo
         if (!_isReappearing)
         {
-            Debug.Log("Rotating...");
             transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
-        }
-        else
-        {
-            Debug.Log("Not rotating because _isReappearing is true.");
         }
     }
 

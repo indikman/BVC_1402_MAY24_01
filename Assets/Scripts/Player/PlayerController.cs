@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         var velocity = _rb.velocity;
         velocity.y = 0;
 
-        if (velocity.magnitude > 0.1f)
+        if (velocity.magnitude > 0.1f && _strafeInput == 0f) 
             animator.SetBool("isRunning", true);
         else
             animator.SetBool("isRunning", false);
@@ -66,17 +66,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
         {
             _strafeInput = -1f;
-            animator.SetBool("isStrafingLeft", _strafeInput == -1f);
+            animator.SetBool("isStrafingLeft", true);
         }
         else if (Input.GetKey(KeyCode.E))
         {
             _strafeInput = 1f;
-            animator.SetBool("isStrafingRight", _strafeInput == 1f);
-
+            animator.SetBool("isStrafingRight", true);
+            Debug.Log("Right Strafe works");
         }
-
-        // Define animações de strafe
-
+        else
+        {
+            _strafeInput = 0f;
+            animator.SetBool("isStrafingLeft", false);
+            animator.SetBool("isStrafingRight", false);
+        }
     }
 
     private void HandleMovement()

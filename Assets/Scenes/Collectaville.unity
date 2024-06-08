@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDistance: 1
-  maxDistance: 4
+  maxDistance: 3
   smooth: 10
   distance: 0
   dollyDirAjusted: {x: 0, y: 0, z: 0}

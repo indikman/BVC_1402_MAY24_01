@@ -20,7 +20,9 @@ public class PlayerInputController : MonoBehaviour
         _playerInput.PlayerMovement.Camera.performed += value => _cameraController.RotateCamera(value.ReadValue<Vector2>());
 
         _playerInput.PlayerMovement.Jump.performed += value => _playerController.Jump();
-        
+
+        _playerInput.PlayerMovement.Sidemovement.performed += value => _playerController.StrafMovementInput(value.ReadValue<Vector2>());
+       
         _playerInput.Enable();
     }
 

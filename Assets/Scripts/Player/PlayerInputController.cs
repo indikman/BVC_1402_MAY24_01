@@ -16,13 +16,13 @@ public class PlayerInputController : MonoBehaviour
 
         _playerInput = new PlayerInput();
         _playerInput.PlayerMovement.Movement.performed += 
-            value => _playerController.SetMovementInput(value.ReadValue<Vector2>());
+            value => _playerController.SetMovementInput(value.ReadValue<Vector2>());//movement inputs are plugged in
 
         _playerInput.PlayerMovement.Camera.performed +=
-            value => _cameraController.RotateCamera(value.ReadValue<Vector2>());
+            value => _cameraController.RotateCamera(value.ReadValue<Vector2>());//camera inputs are plugged in
 
         _playerInput.PlayerMovement.Strafing.performed +=
-            value => _playerController.Strafing(value.ReadValue<Vector2>());
+            value => _playerController.SetStrafingInput(value.ReadValue<Vector2>());//strafing input is plugged in
 
         _playerInput.PlayerMovement.Jump.performed += value => _playerController.Jump();
         

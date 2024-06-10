@@ -66,23 +66,23 @@ public class CameraController : MonoBehaviour
 
     private void HandleCollision()
     {
-        Vector3 intendedPosition = pivot.TransformPoint(new Vector3(0, 0, zoomDistance));
+        Vector3 Position = pivot.TransformPoint(new Vector3(0, 0, zoomDistance));
         RaycastHit hit;
 
         // Perform a Raycast to detect obstacles
-        bool hitDetected = Physics.Raycast(pivot.position, intendedPosition - pivot.position, out hit, Mathf.Abs(initialZoom), obstructions);
+        bool hitDetected = Physics.Raycast(pivot.position, Position - pivot.position, out hit, Mathf.Abs(initialZoom), obstructions);
 
         if (hitDetected && hit.distance > minCollision)
         {
             // Calculate the adjusted distance considering obstructions
-            float adjustedDistance = hit.distance - buffer;
-            adjustedDistance = Mathf.Clamp(adjustedDistance, minDistance, maxDistance);
+            float ChangedDistance = hit.distance - buffer;
+            ChangedDistance = Mathf.Clamp(ChangedDistance, minDistance, maxDistance);
 
             // Log the hit details and the adjusted distance
-            Debug.Log($"Hit detected: {hit.collider.name}, Hit distance: {hit.distance}, Adjusted distance: {adjustedDistance}");
+            Debug.Log($"Hit detected: {hit.collider.name}, Hit distance: {hit.distance}, Adjusted distance: {ChangedDistance}");
 
             // Smoothly interpolate the zoom distance
-            zoomDistance = Mathf.Lerp(zoomDistance, adjustedDistance, zoomRate * Time.deltaTime);
+            zoomDistance = Mathf.Lerp(zoomDistance, ChangedDistance, zoomRate * Time.deltaTime);
         }
         else
         {

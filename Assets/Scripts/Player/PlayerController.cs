@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float walkSpeed = 1.5f;
     [SerializeField] private float rotationSpeed = 15f;
 
-    [Header("Jump")] 
+    [Header("Jump")]
     [SerializeField] private float jumpVelocity = 20f;
 
     [SerializeField] private Vector3 groundCheckPoint;
@@ -24,8 +24,9 @@ public class PlayerController : MonoBehaviour
 
     private float _xMovement;
     private float _yMovement;
-    private float _movementAmount;
     private bool _isGround;
+    private bool _isStrafingLeft;
+    private bool _isStrafingRight;
 
     private void Awake()
     {
@@ -45,13 +46,16 @@ public class PlayerController : MonoBehaviour
 
         var velocity = _rb.velocity;
         velocity.y = 0;
-        
-        if(velocity.magnitude > 0.1f) 
+
+        if (velocity.magnitude > 0.1f)
             animator.SetBool("isRunning", true);
-        else 
+        else
             animator.SetBool("isRunning", false);
-        
+
         animator.SetBool("isGround", _isGround);
+
+        CheckForStrafingInput();
+        UpdateAnimatorParameters();
     }
 
     private void HandleMovement()
@@ -89,10 +93,10 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if(!_isGround) return;
-        
+        if (!_isGround) return;
+
         animator.SetTrigger("jump");
-        
+
         Vector3 currentVelocity = _rb.velocity;
         currentVelocity.y = jumpVelocity;
 
@@ -103,5 +107,18 @@ public class PlayerController : MonoBehaviour
     {
         _isGround = Physics.CheckSphere(transform.position + groundCheckPoint, radius, groundLayer);
     }
-   
+
+    private void CheckForStrafingInput()
+    {
+        // Handle strafing input directly
+        _isStrafingLeft = Input.GetKey(KeyCode.Q);
+        _isStrafingRight = Input.GetKey(KeyCode.E);
+    }
+
+    private void UpdateAnimatorParameters()
+    {
+        // Set animator parameters for strafing
+        animator.SetBool("strafeLeft", _isStrafingLeft);
+        animator.SetBool("strafeRight", _isStrafingRight);
+    }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.54886997, g: 0.7945225, b: 0.9728404, a: 1}
+  m_IndirectSpecularColor: {r: 0.5493344, g: 0.7941628, b: 0.9733974, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -632,13 +632,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4654345b6399468cb8ac9dc0c1bad77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 1577428353}
-  cameraFollowSpeed: 0.2
-  cameraLookSpeed: 2
-  cameraPivotSpeed: 2
-  minPivotAngle: -15
-  maxPivotAngle: 40
-  cameraPivot: {fileID: 215930011}
+  target: {fileID: 1577428353}
+  followSpeed: 0.2
+  lookSpeed: 2
+  pivotSpeed: 2
+  minPivot: -35
+  maxPivot: 35
+  pivot: {fileID: 215930011}
+  obstructions:
+    serializedVersion: 2
+    m_Bits: 8
+  buffer: 0.2
+  minDistance: 1
+  maxDistance: 5
+  zoomRate: 0.5
+  minCollision: 0.5
 --- !u!1001 &1005394307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -771,6 +779,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5946835193750358478, guid: 52bdb3f185a9ac743b46ca9006d7e5f9, type: 3}
   m_PrefabInstance: {fileID: 1287217374}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1308081669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1308081671}
+  - component: {fileID: 1308081670}
+  m_Layer: 0
+  m_Name: 'SpawningManager '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1308081670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308081669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec1d7ebf09f6c949b86f7219ead063a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnTime: 10
+  reappearTime: 5
+  value: 10
+--- !u!4 &1308081671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308081669}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.62, y: 0.03, z: -5.86}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1577428347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1195,7 +1250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 3
-  rotationSpeed: 15
+  rotationSpeed: 9.67
   jumpVelocity: 5
   groundCheckPoint: {x: 0, y: 0, z: 0}
   radius: 0.05
@@ -1747,7 +1802,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992808406}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 45d480461bbdc704587e117329ce8e69, type: 3}
   m_Controller: {fileID: 9100000, guid: 9b8453953137c46dc87ca07171a29663, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -2419,3 +2474,4 @@ SceneRoots:
   - {fileID: 2130838016}
   - {fileID: 169135090}
   - {fileID: 1757760604}
+  - {fileID: 1308081671}

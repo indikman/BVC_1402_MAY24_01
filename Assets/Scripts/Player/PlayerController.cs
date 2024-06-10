@@ -52,11 +52,19 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isRunning", false);
         
         animator.SetBool("isGround", _isGround);
+
+        // Handle starfing animation
+        
+        animator.SetBool("StrafeLeft",Input.GetKeyDown(KeyCode.Q));
+        animator.SetBool("StrafeRight", Input.GetKeyDown(KeyCode.E));
+        // Handle movement input
+        SetMovementInput(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+
+
     }
 
     private void HandleMovement()
-    {
-        Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
+    {  Vector3 moveDirection = _cameraObject.forward * _yMovement + _cameraObject.right * _xMovement;
         moveDirection.Normalize();
         moveDirection.y = 0;
 
@@ -83,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetMovementInput(Vector2 input)
     {
-        _xMovement = input.x;
+        _xMovement = Input.GetKey(KeyCode.Q) ? -1 : Input.GetKey(KeyCode.E) ? 1 : input.x;
         _yMovement = input.y;
     }
 

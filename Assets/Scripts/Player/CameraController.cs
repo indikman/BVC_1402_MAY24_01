@@ -1,64 +1,102 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform targetTransform;
-    
+    [SerializeField] private Transform target;
+
     [Header("Camera Speeds")]
-    [SerializeField] private float cameraFollowSpeed = 0.2f;
-    [SerializeField] private float cameraLookSpeed = 2f;
-    [SerializeField] private float cameraPivotSpeed = 2f;
+    [SerializeField] private float followSpeed = 0.2f;
+    [SerializeField] private float lookSpeed = 2f;
+    [SerializeField] private float pivotSpeed = 2f;
 
     [Header("Camera Pivot")]
-    [SerializeField] private float minPivotAngle = -35f;
-    [SerializeField] private float maxPivotAngle = 35f;
-    [SerializeField] private Transform cameraPivot;
-    
-    private Vector3 _cameraFollowVelocity = Vector3.zero;
+    [SerializeField] private float minPivot = -35f;
+    [SerializeField] private float maxPivot = 35f;
+    [SerializeField] private Transform pivot;
 
-    private float _lookAngle = 0f;
-    private float _pivotAngle = 0f;
-    
+    [Header("Camera Collision")]
+    [SerializeField] private LayerMask obstructions; // LayerMask for obstructions
+    [SerializeField] private float buffer = 0.2f;
+    [SerializeField] private float minDistance = 1f;
+    [SerializeField] private float maxDistance = 5f;
+    [SerializeField] private float zoomRate = 0.5f;
+    [SerializeField] private float minCollision = 0.5f; // Minimum distance to consider for collision
+
+    private Vector3 followVelocity = Vector3.zero;
+    private float lookAngle = 0f;
+    private float pivotAngle = 0f;
+    private float zoomDistance;
+    private float initialZoom;
+    private Camera mainCam;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        mainCam = GetComponentInChildren<Camera>();
+        initialZoom = mainCam.transform.localPosition.z;
+        zoomDistance = initialZoom;
     }
-    
-    void Update()
+
+    void LateUpdate()
     {
         FollowTarget();
+        HandleCollision();
     }
 
     private void FollowTarget()
     {
-        Vector3 targetPosition = Vector3.SmoothDamp(transform.position, targetTransform.position,
-            ref _cameraFollowVelocity, cameraFollowSpeed);
+        Vector3 targetPosition = Vector3.SmoothDamp(transform.position, target.position, ref followVelocity, followSpeed);
         transform.position = targetPosition;
     }
 
-    public void RotateCamera(Vector2 mouseInput)
+    public void RotateCamera(Vector2 input)
     {
-        Vector3 lookRotation = Vector3.zero;
-        Vector3 pivotRotation = Vector3.zero;
-        
-        //LOOKING
-        _lookAngle = _lookAngle + mouseInput.x * cameraLookSpeed;
-        lookRotation.y = _lookAngle;
+        lookAngle += input.x * lookSpeed;
+        pivotAngle -= input.y * pivotSpeed;
+        pivotAngle = Mathf.Clamp(pivotAngle, minPivot, maxPivot);
 
-        Quaternion targetLookRotation = Quaternion.Euler(lookRotation);
-        transform.rotation = targetLookRotation;
-        
-        //PIVOT
-        _pivotAngle = _pivotAngle - mouseInput.y * cameraPivotSpeed;
-        _pivotAngle = Mathf.Clamp(_pivotAngle, minPivotAngle, maxPivotAngle);
-        pivotRotation.x = _pivotAngle;
+        Quaternion targetRotation = Quaternion.Euler(0, lookAngle, 0);
+        transform.rotation = targetRotation;
 
-        Quaternion targetPivotRotation = Quaternion.Euler(pivotRotation);
-        cameraPivot.localRotation = targetPivotRotation;
-
+        Quaternion pivotRotation = Quaternion.Euler(pivotAngle, 0, 0);
+        pivot.localRotation = pivotRotation;
     }
-    
+
+    private void HandleCollision()
+    {
+        Vector3 intendedPosition = pivot.TransformPoint(new Vector3(0, 0, zoomDistance));
+        RaycastHit hit;
+
+        // Perform a Raycast to detect obstacles
+        bool hitDetected = Physics.Raycast(pivot.position, intendedPosition - pivot.position, out hit, Mathf.Abs(initialZoom), obstructions);
+
+        if (hitDetected && hit.distance > minCollision)
+        {
+            // Calculate the adjusted distance considering obstructions
+            float adjustedDistance = hit.distance - buffer;
+            adjustedDistance = Mathf.Clamp(adjustedDistance, minDistance, maxDistance);
+
+            // Log the hit details and the adjusted distance
+            Debug.Log($"Hit detected: {hit.collider.name}, Hit distance: {hit.distance}, Adjusted distance: {adjustedDistance}");
+
+            // Smoothly interpolate the zoom distance
+            zoomDistance = Mathf.Lerp(zoomDistance, adjustedDistance, zoomRate * Time.deltaTime);
+        }
+        else
+        {
+            
+            Debug.Log("No hit detected or hit distance is too short, reverting to initial zoom");
+
+            // Smoothly interpolate the zoom distance back to the initial zoom
+            zoomDistance = Mathf.Lerp(zoomDistance, initialZoom, zoomRate * Time.deltaTime);
+        }
+
+        // Move the main camera to the new adjusted position
+        mainCam.transform.localPosition = new Vector3(0, 0, zoomDistance);
+
+        // Log the final camera position
+        Debug.Log($"Camera position adjusted to: {mainCam.transform.localPosition}");
+    }
 }

@@ -645,6 +645,13 @@ MonoBehaviour:
   cameraPivotSpeed: 2
   minPivotAngle: -15
   maxPivotAngle: 40
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  cameraCollisionRadius: 0.5
+  minDistanceFromTarget: 1
+  maxDistanceFromTarget: 5
+  zoomSpeed: 5
 --- !u!1001 &1005394307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1580,6 +1587,18 @@ PrefabInstance:
       value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2503225421799454493, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3398451
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503225421799454493, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3398451
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503225421799454493, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3398451
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503225421799454493, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
       propertyPath: m_LocalPosition.z
       value: -3
       objectReference: {fileID: 0}
@@ -1629,7 +1648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6012681992089890074, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
       propertyPath: m_BlockingObjects
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6012681992089890074, guid: 83ec0d6fc2b7582418990f773ce1f105, type: 3}
       propertyPath: m_BlockingMask.m_Bits

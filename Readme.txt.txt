@@ -8,3 +8,4 @@ Internet Links:
 
 Personal Supports:
 - Musse Hidru (Student EA) - for strafing supporting
+- Indika Wijesooriya (The Professor) - for strafing animation
